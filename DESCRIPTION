@@ -1,0 +1,31 @@
+Package: i4rresponse
+Type: Project
+Title: Citation Responses to Replication Assessments
+Version: 0.2.0
+Authors@R: person("Gaurav", "Sood", role = c("aut", "cre"), email = "gsood07@gmail.com")
+Description: Source records, citation histories, matched comparisons, and
+    outcome-specific estimates around replication assessments.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Imports:
+    digest,
+    dplyr,
+    fixest,
+    ggplot2,
+    httr2,
+    jsonlite,
+    purrr,
+    readr,
+    rprojroot,
+    stringi,
+    stringr,
+    tibble,
+    tidyr,
+    xml2
+Suggests:
+    lintr,
+    renv,
+    styler,
+    testthat,
+    withr
+Config/testthat/edition: 3

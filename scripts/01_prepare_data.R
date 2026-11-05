@@ -1,0 +1,5 @@
+inputs <- read_study_inputs()
+registry <- build_events(inputs$flora_candidates, inputs$metadata)
+write_table(registry$events, file.path(table_dir, "events.csv"))
+write_table(registry$links, file.path(table_dir, "event_links.csv"))
+saveRDS(list(inputs = inputs, registry = registry), file.path(derived_dir, "prepared_data.rds"))

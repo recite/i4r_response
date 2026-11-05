@@ -9,3 +9,8 @@ __pycache__/
 .ruff_cache/
 build/
 renv/staging/
+data/derived/
+renv/library/
+renv/local/
+renv/lock/
+.Rproj.user/

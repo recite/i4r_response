@@ -1,106 +1,69 @@
-# Responses to replication assessments
+# Citation responses to replication assessments
 
 Do citations change after a study is replicated, and does the response differ
-between successful and failed replications? This repository links replication
-reports to original papers, follows their annual citations, and compares changes
-with papers from the same journal and publication year.
+between successful and failed replications? We compare original papers with
+papers from the same journal and publication year, matching on citation histories
+before the replication report.
 
-The [current results](docs/historical-results.md) are preliminary. The historical
-sample extends beyond the Institute for Replication (I4R), using the FORRT Library
-of Reproduction and Replication Attempts (FLoRA). Collection is incomplete, some
-originals have poor comparison matches, and pre-period trends weaken a causal
-interpretation. Citation counts measure attention, not agreement.
+[Results](docs/results.md) · [Research design](docs/study_design.md) · [Data](data/README.md)
 
-## Reproduce the results
+<!-- results:start -->
+The current analysis includes **282 three-year comparisons** and **365 shorter-window comparisons**. Collection is incomplete, and matching diagnostics limit causal interpretation.
+<!-- results:end -->
 
-This is a research repository, not an installable Python package. Download a
-[release](https://github.com/recite/i4r_response/releases) or clone the repository:
+![Citation responses and uncertainty](figs/replication_estimates.png)
 
-```sh
-git clone https://github.com/recite/i4r_response.git
-cd i4r_response
-uv sync --locked
-uv run --locked make check
-make restore-r
-uv run --locked make check-r
-```
+## Reproduce
 
-Install [uv](https://docs.astral.sh/uv/getting-started/installation/), R, and Make
-first. Python 3.13 and R 4.6.0 are the tested runtimes. Python dependencies are
-locked in `uv.lock`; R dependencies are pinned in `renv.lock`. Dependency
-installation needs network access. All analysis checks then run from committed
-inputs without API credentials or the local source cache.
-
-`make check` runs Black, isort, flake8, Python tests, registry reconstruction,
-coverage checks and citation matching. `make check-r` reproduces the inherited
-I4R comparisons and historical success/failure estimates, then runs R tests and
-lintr. To rebuild only the historical estimates after installing dependencies:
+Use R 4.6 and Make:
 
 ```sh
-uv run --locked make historical historical-r
+make restore
+make check
 ```
 
-## Read and use the data
+`make restore` installs the versions in `renv.lock`. `make analysis` rebuilds the
+current results and figure from committed inputs, without an API key or private
+cache. `make check` also runs R lint and focused checks of numerical results,
+chronology, data integrity and spending limits. `make ci-docker` runs the same
+checks in the standard `rocker/r-ver:4.6.0` image.
 
-Start with the [study design](docs/study-design.md),
-[historical results](docs/historical-results.md), and
-[historical data guide](data/expansion/README.md). The
-[I4R coverage report](docs/trajectory-results.md) describes the separate I4R
-inventory and timing limitations. [Prior work](docs/prior-work.md) explains how
-this study relates to existing research.
+## Files and pipeline
 
-The analysis uses the first recorded journal-publication year of a replication
-report. That date need not be the first public disclosure. Success and failure
-are source classifications, with varying criteria; failure need not apply to
-every finding in a paper. Matching uses only pre-report citation histories.
-Intervals account for shared reports and reused controls, conditional on the
-matches and classifications. The difference between the two response estimates
-is not the causal effect of a replication failing rather than succeeding.
-
-The inherited [three-case comparison](docs/i4r/aggregate-results.md) and
-[synthetic-control checks](docs/i4r/synthetic-results.md) remain available. Their
-outcomes were examined before the broader design was written. The
-[migration record](docs/migration.json) identifies code and data separated from
-[`sig_fault`](https://github.com/recite/sig_fault). Citation collection also adapts
-methods from [`propagation_of_error`](https://github.com/recite/propagation_of_error).
+| Path | Purpose |
+|---|---|
+| `data/raw/replications/` | FLoRA records, verified metadata, comparison pools and collected citation histories |
+| `data/raw/i4r/` | I4R assessment records, evidence links and collected histories |
+| `data/derived/` | Rebuildable intermediate R objects; ignored by Git |
+| `R/` | Reusable functions for preparation, collection, matching, estimation and reporting |
+| `scripts/00_config.R` | Paths, observation windows and sampling settings |
+| `scripts/01_prepare_data.R` | Validate inputs and establish first recorded report events |
+| `scripts/02_match.R` | Select controls using pre-report citations and construct contrasts |
+| `scripts/03_estimate.R` | Estimate outcome-specific responses, uncertainty and sensitivities |
+| `scripts/04_report.R` | Write the results page and figure |
+| `scripts/99_run_all.R` | Run the analysis stages in order |
+| `tabs/` | Current estimates, individual contrasts, matching diagnostics and exclusions |
+| `tests/testthat/` | Numerical and data-integrity checks |
 
 ## Extend collection
 
-Acquisition is separate from the offline analysis:
-
 ```sh
-uv run scripts/replication_metadata.py --fetch
-uv run scripts/replication_collect.py pools --fetch
-uv run scripts/replication_collect.py histories --fetch
+Rscript scripts/acquire.R metadata --fetch
+Rscript scripts/acquire.R pools --fetch
+Rscript scripts/acquire.R histories --fetch
 ```
 
-OpenAlex collection requires an API key in `OPENALEX_API_KEY` or
-`~/.config/openalex/api_key`. History collection defaults to zero prepaid spend;
-`--max-paid-usd` sets an explicitly authorized cumulative prepaid cap. Interrupted
-batches retain conservative spending reservations that count against that cap. Metadata
-and pool acquisition do not share that guard, so check your available API budget
-before running them. Cached responses allow resumption. Request URLs, retrieval
-dates and checksums are retained; credentials are not written to receipts.
+Set `OPENALEX_API_KEY` or store the key in `~/.config/openalex/api_key`.
+All OpenAlex collection stages default to zero prepaid spending. An explicitly
+authorized `--max-paid-usd=3` sets a cumulative cap; interrupted requests retain
+reservations against it. Complete histories are reused. API credentials and
+working caches stay local. `Rscript scripts/acquire.R sources --fetch` downloads
+the pinned source CSVs using `gh` and checks their hashes.
 
-The source roster is pinned in `data/expansion/source_snapshots.csv`.
-`uv run scripts/replication_sources.py fetch` retrieves those CSV snapshots using
-`gh`; `build` reconstructs the candidate roster. See the
-[source guide](docs/i4r/README.md) for the earlier I4R collection. Completed
-citation years end in 2025; partial 2026 counts are excluded. The I4R source
-catalog ends on 2026-10-05, while FLoRA uses its separately pinned revision.
+The outcome is attention, not agreement. A later [citation-context study](docs/citation_context.md)
+will examine whether citing papers rely on a challenged finding or acknowledge a
+concern. No completed context ratings are reported. [Related research](docs/prior_work.md)
+sets out the precedents and the potential contribution.
 
-A later stage will examine whether citing papers rely on challenged findings or
-acknowledge concerns. The [context protocol](docs/context-review.md) specifies
-that work; no LLM-judged citation-context result is included in this release.
-Bulk replication datasets and environments are unnecessary: keep source
-references and retrieve only documents needed for a specific check. See the
-[cache policy](docs/cache-policy.md).
-
-## Attribution and reuse
-
-Code is available under the [MIT license](LICENSE). Data sources and their terms
-are documented in [DATA_SOURCES.md](DATA_SOURCES.md), including FLoRA's CC BY 4.0
-license. Third-party text retains its source rights. Cite this repository using
-[CITATION.cff](CITATION.cff), and credit the source datasets when reusing their
-records. [Release notes](CHANGELOG.md) distinguish completed work from outstanding
-collection and design questions.
+Code is [MIT licensed](LICENSE). Source attribution and data reuse terms are in
+[data/README.md](data/README.md); citation metadata are in [CITATION.cff](CITATION.cff).

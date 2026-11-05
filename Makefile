@@ -1,41 +1,27 @@
-PYTHON ?= python3
-RSCRIPT ?= Rscript --vanilla
+.PHONY: restore analysis format lint test check ci-docker clean
 
-.PHONY: check lint test registry feasibility trajectories expansion historical historical-r baseline check-r restore-r
-check: lint test registry feasibility trajectories expansion historical
+restore:
+	Rscript --vanilla -e 'if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv", repos = "https://cloud.r-project.org"); renv::load(project = getwd()); renv::restore(prompt = FALSE)'
+
+analysis:
+	Rscript scripts/99_run_all.R
+
+format:
+	Rscript -e 'styler::style_dir("R"); styler::style_dir("scripts"); styler::style_dir("tests")'
+
 lint:
-	$(PYTHON) -m black --check scripts tests
-	$(PYTHON) -m isort --check-only scripts tests
-	$(PYTHON) -m flake8 scripts tests
-test:
-	$(PYTHON) -m unittest discover -s tests
-registry:
-	$(PYTHON) scripts/i4r_registry.py build
-	$(PYTHON) scripts/i4r_registry.py validate
-feasibility:
-	$(PYTHON) scripts/feasibility.py
-trajectories: registry
-	$(PYTHON) scripts/collect_grouped_citations.py --validate
-	$(PYTHON) scripts/trajectory_basics.py
-baseline: registry
-	$(PYTHON) scripts/i4r_match.py
-	$(RSCRIPT) scripts/i4r_analysis.R
-	$(PYTHON) scripts/i4r_aggregate.py validate
-	$(PYTHON) scripts/i4r_match.py --citation-file data/i4r/aggregate/citations.csv --output-dir data/i4r/aggregate
-	$(RSCRIPT) scripts/i4r_analysis.R data/i4r/aggregate docs/i4r/aggregate-results.md
-	$(PYTHON) scripts/i4r_synthetic.py
-	$(PYTHON) scripts/i4r_report.py
-check-r: baseline historical-r
-	$(RSCRIPT) -e 'testthat::test_dir("tests/testthat", stop_on_failure = TRUE)'
-	$(RSCRIPT) -e 'l <- unlist(lapply(c("R", "scripts", "tests/testthat"), lintr::lint_dir), recursive = FALSE); print(l); quit(status = as.integer(length(l) > 0))'
-restore-r:
-	$(RSCRIPT) -e 'if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv", repos = "https://cloud.r-project.org"); renv::restore(lockfile = "renv.lock", library = Sys.getenv("R_LIBS_USER"), prompt = FALSE)'
+	Rscript -e 'l <- unlist(lapply(c("R", "scripts", "tests"), lintr::lint_dir), recursive = FALSE); print(l); quit(status = as.integer(length(l) > 0))'
 
-expansion:
-	$(PYTHON) scripts/replication_sources.py summarize
+test: analysis
+	Rscript -e 'testthat::test_dir("tests/testthat", stop_on_failure = TRUE)'
 
-historical:
-	$(PYTHON) scripts/replication_events.py
-	$(PYTHON) scripts/replication_analysis.py
-historical-r:
-	$(RSCRIPT) scripts/replication_inference.R
+check: lint test
+
+ci-docker:
+	docker run --rm -v "$(CURDIR):/project" -w /project \
+		-v r_renv_cache:/root/.cache/R/renv \
+		-e RENV_CONFIG_REPOS_OVERRIDE=https://packagemanager.posit.co/cran/latest \
+		rocker/r-ver:4.6.0 bash -c "make restore check"
+
+clean:
+	Rscript --vanilla -e 'unlink("data/derived", recursive = TRUE)'

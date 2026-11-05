@@ -7,9 +7,9 @@ authors:
 repository-code: "https://github.com/recite/i4r_response"
 url: "https://github.com/recite/i4r_response"
 abstract: >-
-  Reproducible citation comparisons around replication assessments, using I4R
-  and FLoRA source records. The initial research snapshot contains incomplete
-  collection and exploratory outcome-specific estimates.
+  An R research pipeline for citation comparisons around replication assessments,
+  using I4R and FLoRA source records. Collection is incomplete and outcome-specific
+  estimates remain exploratory.
 license: MIT
 keywords:
   - replication

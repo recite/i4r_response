@@ -1,26 +1,16 @@
 # Changelog
 
-## 0.1.0 — Initial research snapshot
+## 0.2.0
 
-This prerelease provides a runnable, frozen research snapshot. It does not mark
-completion of citation collection or establish a causal effect.
+- Use an R-only pipeline with numbered stages, reusable functions, `renv`, and
+  standard `make analysis` / `make check` commands.
+- Remove the obsolete three-paper and synthetic-control analyses, their outputs,
+  and migration records. Present one current study and results page.
+- Consolidate source attribution and reuse terms in `data/README.md`.
+- Replace the sprawling test suite with focused numerical, data-integrity and
+  spending-limit checks. The R conversion preserves all 30 reported contrasts
+  and their standard errors to numerical precision.
 
-- Import pinned FLoRA replication records and earlier I4R coding; verify original
-  and report identities and journal-publication dates.
-- Identify 1,068 originals eligible for matching: 568 source-coded successful
-  and 500 failed replications.
-- Reproduce 282 three-year comparisons and 365 shorter-window comparisons from
-  the histories collected so far. The three-year failed-minus-successful
-  estimate is +0.29 citations per paper per year (95% interval −3.62 to +4.19).
-- Account for shared reports and reused controls; expose matching support,
-  held-out pre-period changes, and repeated-assessment sensitivities.
-- Preserve the separate I4R registry, inherited comparisons, source receipts,
-  missingness records and citation-context protocol.
-- Make numerical matching ties deterministic across platforms.
-- Persist prepaid reservations before dispatch so interrupted collection cannot
-  reset the cumulative spending cap.
+## 0.1.0
 
-Collection stopped with 10,121 requested histories unavailable under the zero
-prepaid-spend limit. Matching quality, nonzero pre-period changes, heterogeneous
-outcome classifications and uncertain first-disclosure dates limit interpretation.
-Citation-context judgments are not yet available.
+Initial exploratory citation snapshot. Collection remains incomplete.
