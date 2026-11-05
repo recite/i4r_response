@@ -26,7 +26,9 @@ def write_csv(path, rows, fields):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=fields, extrasaction="raise")
+        writer = csv.DictWriter(
+            stream, fieldnames=fields, extrasaction="raise", lineterminator="\n"
+        )
         writer.writeheader()
         writer.writerows(rows)
 
