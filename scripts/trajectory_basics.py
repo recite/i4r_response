@@ -85,7 +85,7 @@ def rank_donors(target, donors, counts, years, limit=5):
             if active
             else 0.0
         )
-        distances.append((aid, distance))
+        distances.append((aid, round(distance, 10)))
     return sorted(distances, key=lambda x: (x[1], x[0]))[:limit], not active
 
 

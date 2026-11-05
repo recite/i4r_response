@@ -1938,15 +1938,15 @@ paper_182b94d5b4019cad,short_2pre_1post,successful,2024,10.1080/23273798.2024.23
 paper_182b94d5b4019cad,short_2pre_1post,successful,2024,10.1080/23273798.2024.2337948,False,False,short_2pre_1post_paper_182b94d5b4019cad,paper_260e847017b4b1f6,0,0.2,-1
 paper_182b94d5b4019cad,short_2pre_1post,successful,2024,10.1080/23273798.2024.2337948,False,False,short_2pre_1post_paper_182b94d5b4019cad,paper_93a7c96ae679e379,0,0.2,2
 paper_b0117f0f1eecb4c3,balanced_3pre_3post,failed,2004,10.1080/0003684042000229532,False,False,balanced_3pre_3post_paper_b0117f0f1eecb4c3,paper_b0117f0f1eecb4c3,1,1,9.0
-paper_b0117f0f1eecb4c3,balanced_3pre_3post,failed,2004,10.1080/0003684042000229532,False,False,balanced_3pre_3post_paper_b0117f0f1eecb4c3,paper_6c71cb6e236b6b4c,0,0.2,2.333333333333
 paper_b0117f0f1eecb4c3,balanced_3pre_3post,failed,2004,10.1080/0003684042000229532,False,False,balanced_3pre_3post_paper_b0117f0f1eecb4c3,paper_0fb6ee7031c0e263,0,0.2,5
+paper_b0117f0f1eecb4c3,balanced_3pre_3post,failed,2004,10.1080/0003684042000229532,False,False,balanced_3pre_3post_paper_b0117f0f1eecb4c3,paper_6c71cb6e236b6b4c,0,0.2,2.333333333333
 paper_b0117f0f1eecb4c3,balanced_3pre_3post,failed,2004,10.1080/0003684042000229532,False,False,balanced_3pre_3post_paper_b0117f0f1eecb4c3,paper_c4d5b9f7c93e51c7,0,0.2,-2
 paper_b0117f0f1eecb4c3,balanced_3pre_3post,failed,2004,10.1080/0003684042000229532,False,False,balanced_3pre_3post_paper_b0117f0f1eecb4c3,paper_ea12c3738d39d9f3,0,0.2,7
 paper_b0117f0f1eecb4c3,balanced_3pre_3post,failed,2004,10.1080/0003684042000229532,False,False,balanced_3pre_3post_paper_b0117f0f1eecb4c3,paper_32633109822ff734,0,0.2,3
 paper_b0117f0f1eecb4c3,short_2pre_1post,failed,2004,10.1080/0003684042000229532,False,False,short_2pre_1post_paper_b0117f0f1eecb4c3,paper_b0117f0f1eecb4c3,1,1,11
 paper_b0117f0f1eecb4c3,short_2pre_1post,failed,2004,10.1080/0003684042000229532,False,False,short_2pre_1post_paper_b0117f0f1eecb4c3,paper_ea12c3738d39d9f3,0,0.2,2.5
-paper_b0117f0f1eecb4c3,short_2pre_1post,failed,2004,10.1080/0003684042000229532,False,False,short_2pre_1post_paper_b0117f0f1eecb4c3,paper_6c71cb6e236b6b4c,0,0.2,3.5
 paper_b0117f0f1eecb4c3,short_2pre_1post,failed,2004,10.1080/0003684042000229532,False,False,short_2pre_1post_paper_b0117f0f1eecb4c3,paper_0fb6ee7031c0e263,0,0.2,2
+paper_b0117f0f1eecb4c3,short_2pre_1post,failed,2004,10.1080/0003684042000229532,False,False,short_2pre_1post_paper_b0117f0f1eecb4c3,paper_6c71cb6e236b6b4c,0,0.2,3.5
 paper_b0117f0f1eecb4c3,short_2pre_1post,failed,2004,10.1080/0003684042000229532,False,False,short_2pre_1post_paper_b0117f0f1eecb4c3,paper_c4d5b9f7c93e51c7,0,0.2,-2
 paper_b0117f0f1eecb4c3,short_2pre_1post,failed,2004,10.1080/0003684042000229532,False,False,short_2pre_1post_paper_b0117f0f1eecb4c3,paper_32633109822ff734,0,0.2,2.5
 paper_8755933b9f258b6e,short_2pre_1post,failed,2024,10.15626/mp.2020.2639,False,False,short_2pre_1post_paper_8755933b9f258b6e,paper_8755933b9f258b6e,1,1,0.5
@@ -3692,8 +3692,8 @@ paper_87e879be6c772234,balanced_3pre_3post,failed,2019,10.1523/jneurosci.0888-19
 paper_87e879be6c772234,short_2pre_1post,failed,2019,10.1523/jneurosci.0888-19.2019,False,False,short_2pre_1post_paper_87e879be6c772234,paper_87e879be6c772234,1,1,-2
 paper_87e879be6c772234,short_2pre_1post,failed,2019,10.1523/jneurosci.0888-19.2019,False,False,short_2pre_1post_paper_87e879be6c772234,paper_b378d59f2f2df5b7,0,0.2,1
 paper_87e879be6c772234,short_2pre_1post,failed,2019,10.1523/jneurosci.0888-19.2019,False,False,short_2pre_1post_paper_87e879be6c772234,paper_b63fc97814f74884,0,0.2,-0.5
-paper_87e879be6c772234,short_2pre_1post,failed,2019,10.1523/jneurosci.0888-19.2019,False,False,short_2pre_1post_paper_87e879be6c772234,paper_510642821fe905f0,0,0.2,2
 paper_87e879be6c772234,short_2pre_1post,failed,2019,10.1523/jneurosci.0888-19.2019,False,False,short_2pre_1post_paper_87e879be6c772234,paper_07c446f23934ce3d,0,0.2,-1.5
+paper_87e879be6c772234,short_2pre_1post,failed,2019,10.1523/jneurosci.0888-19.2019,False,False,short_2pre_1post_paper_87e879be6c772234,paper_510642821fe905f0,0,0.2,2
 paper_87e879be6c772234,short_2pre_1post,failed,2019,10.1523/jneurosci.0888-19.2019,False,False,short_2pre_1post_paper_87e879be6c772234,paper_cdd61f0b0aeed923,0,0.2,1.5
 paper_db9d9c9a6617ad24,balanced_3pre_3post,successful,2016,10.1111/acer.13039,False,False,balanced_3pre_3post_paper_db9d9c9a6617ad24,paper_db9d9c9a6617ad24,1,1,10.0
 paper_db9d9c9a6617ad24,balanced_3pre_3post,successful,2016,10.1111/acer.13039,False,False,balanced_3pre_3post_paper_db9d9c9a6617ad24,paper_0731583b6a3a9ab2,0,0.2,0.333333333333

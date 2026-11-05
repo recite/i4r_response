@@ -47,6 +47,12 @@ class TrajectoryTests(unittest.TestCase):
         self.assertEqual(result["control_pre"], 8)
         self.assertEqual(result["difference_in_changes"], 4)
 
+    def test_log_symmetric_donors_tie_despite_float_roundoff(self):
+        counts = {"target": {1: 13, 2: 5}, "b": {1: 10, 2: 11}, "a": {1: 10, 2: 2}}
+        selected, _ = study.rank_donors("target", ["b", "a"], counts, [1, 2])
+        self.assertEqual(selected[0][0], "a")
+        self.assertEqual(selected[0][1], selected[1][1])
+
     def test_constant_baselines_are_flagged_and_deterministic(self):
         counts = {k: {1: 0, 2: 0} for k in ["a", "b", "c"]}
         selected, tied = study.rank_donors("a", ["c", "b"], counts, [1, 2], limit=1)

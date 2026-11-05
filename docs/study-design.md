@@ -155,7 +155,9 @@ older I4R rule and may exclude some later-retracted papers.
 
 Keep the existing three-before/three-after primary window and the separately
 reported two-before/one-after window. Match up to five donors on pre-period
-citations from fixed seeded journal/year samples of 20. A missing baseline in an
+citations from fixed seeded journal/year samples of 20. Round matching distances
+to ten decimal places before breaking ties by paper ID, so floating-point
+roundoff cannot reorder effectively identical matches across platforms. A missing baseline in an
 otherwise eligible donor blocks the comparison; a missing selected follow-up
 does not trigger replacement. Counts are OpenAlex citing article/review works,
 using individually filtered queries and complete year-bin reconciliation.
