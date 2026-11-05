@@ -667,6 +667,7 @@ def build(refresh_metadata=False):
             if r.get(name):
                 articles[aid][name] = r[name]
     accepted_sources = []
+    metadata_conflicts = []
     if not refresh_metadata:
         for frozen in s.read("verified_metadata.csv"):
             aid = frozen["article_id"]
@@ -682,7 +683,16 @@ def build(refresh_metadata=False):
                 record["doi"]
                 and common.normalize_doi(work.get("doi") or "") != record["doi"]
             ):
-                raise ValueError("DOI mismatch " + aid)
+                metadata_conflicts.append(
+                    dict(
+                        article_id=aid,
+                        expected_doi=record["doi"],
+                        returned_doi=common.normalize_doi(work.get("doi") or ""),
+                        openalex_id=work.get("id", ""),
+                        reason="doi_or_version_conflict",
+                    )
+                )
+                continue
             if identity_title_key(record["title"]) != identity_title_key(
                 work["title"]
             ) and not any(r["article_id"] == aid for r in decisions):
@@ -727,6 +737,11 @@ def build(refresh_metadata=False):
                 else work.get("type", "")
             )
     if refresh_metadata:
+        s.write(
+            "metadata_conflicts.csv",
+            metadata_conflicts,
+            ["article_id", "expected_doi", "returned_doi", "openalex_id", "reason"],
+        )
         s.write(
             "metadata_provenance.csv",
             accepted_sources,

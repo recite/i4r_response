@@ -64,6 +64,19 @@ For a quick standard-library-only feasibility rebuild:
 python3 scripts/feasibility.py
 ```
 
+The expanded collection adapts grouped annual OpenAlex counts and seeded
+journal/year candidate samples from
+[`propagation_of_error`](https://github.com/recite/propagation_of_error).
+`collect_grouped_citations.py --fetch` refreshes article/review work counts;
+`collect_comparison_pools.py --fetch` refreshes samples of up to 20 candidates
+per missing journal/year pool and verifies publisher dates. Both require an
+OpenAlex key. Matching uses pre-assessment citations only. Grouped work counts
+remain separate from the older DOI-deduplicated edge counts. Report-publication
+years are also separate from verified challenge dates: a report can be favorable,
+and its publication year need not be the first public disclosure of a concern.
+`data/trajectories/descriptive_summary.csv` separates the resulting comparisons
+by event basis, outcome measure, observation window and assessment label.
+
 Acquisition remains separate and opt-in; see the inherited
 [source guide](docs/i4r/README.md). API access, collection costs, and changing
 source snapshots must be checked before refreshing. The frozen catalog ends on

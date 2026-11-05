@@ -246,8 +246,8 @@
       },
       "openalex_id": {
         "type": "string",
-        "missing": 191,
-        "distinct_nonmissing": 383
+        "missing": 20,
+        "distinct_nonmissing": 554
       },
       "journal": {
         "type": "string",
@@ -256,8 +256,8 @@
       },
       "journal_id": {
         "type": "string",
-        "missing": 191,
-        "distinct_nonmissing": 26
+        "missing": 20,
+        "distinct_nonmissing": 62
       },
       "publication_date": {
         "type": "string",
@@ -271,13 +271,13 @@
       },
       "indexed_publication_date": {
         "type": "string",
-        "missing": 191,
-        "distinct_nonmissing": 282
+        "missing": 20,
+        "distinct_nonmissing": 393
       },
       "indexed_publication_year": {
         "type": "integer",
-        "missing": 191,
-        "distinct_nonmissing": 15
+        "missing": 20,
+        "distinct_nonmissing": 21
       },
       "publication_date_source": {
         "type": "string",
@@ -287,12 +287,12 @@
       "type": {
         "type": "string",
         "missing": 16,
-        "distinct_nonmissing": 2
+        "distinct_nonmissing": 4
       },
       "abstract": {
         "type": "string",
-        "missing": 252,
-        "distinct_nonmissing": 322
+        "missing": 106,
+        "distinct_nonmissing": 468
       },
       "identity_verified": {
         "type": "string",
@@ -1225,7 +1225,7 @@
     }
   },
   "identity_resolution.csv": {
-    "rows": 385,
+    "rows": 558,
     "duplicate_keys": 0,
     "key": [
       "article_id"
@@ -1234,7 +1234,7 @@
       "article_id": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 385
+        "distinct_nonmissing": 558
       },
       "status": {
         "type": "string",
@@ -1243,7 +1243,7 @@
       },
       "detail": {
         "type": "string",
-        "missing": 385,
+        "missing": 558,
         "distinct_nonmissing": 0
       }
     }
@@ -1416,8 +1416,42 @@
       }
     }
   },
+  "metadata_conflicts.csv": {
+    "rows": 1,
+    "duplicate_keys": 0,
+    "key": [
+      "article_id"
+    ],
+    "columns": {
+      "article_id": {
+        "type": "string",
+        "missing": 0,
+        "distinct_nonmissing": 1
+      },
+      "expected_doi": {
+        "type": "string",
+        "missing": 0,
+        "distinct_nonmissing": 1
+      },
+      "returned_doi": {
+        "type": "string",
+        "missing": 0,
+        "distinct_nonmissing": 1
+      },
+      "openalex_id": {
+        "type": "string",
+        "missing": 0,
+        "distinct_nonmissing": 1
+      },
+      "reason": {
+        "type": "string",
+        "missing": 0,
+        "distinct_nonmissing": 1
+      }
+    }
+  },
   "metadata_provenance.csv": {
-    "rows": 946,
+    "rows": 1117,
     "duplicate_keys": 0,
     "key": [
       "article_id",
@@ -1437,22 +1471,22 @@
       "path": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 946
+        "distinct_nonmissing": 1117
       },
       "url": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 941
+        "distinct_nonmissing": 1112
       },
       "sha256": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 941
+        "distinct_nonmissing": 1112
       },
       "retrieved_at": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 946
+        "distinct_nonmissing": 1117
       }
     }
   },
@@ -1835,7 +1869,7 @@
     }
   },
   "source_manifest.csv": {
-    "rows": 6561,
+    "rows": 9868,
     "duplicate_keys": 0,
     "key": [
       "path"
@@ -1844,27 +1878,27 @@
       "path": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 6561
+        "distinct_nonmissing": 9868
       },
       "url": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 5596
+        "distinct_nonmissing": 8849
       },
       "retrieved_at": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 5817
+        "distinct_nonmissing": 9124
       },
       "sha256": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 5163
+        "distinct_nonmissing": 8436
       },
       "bytes": {
         "type": "integer",
         "missing": 0,
-        "distinct_nonmissing": 4447
+        "distinct_nonmissing": 5571
       }
     }
   },
@@ -2103,8 +2137,8 @@
       },
       "openalex_id": {
         "type": "string",
-        "missing": 180,
-        "distinct_nonmissing": 383
+        "missing": 9,
+        "distinct_nonmissing": 554
       },
       "journal": {
         "type": "string",
@@ -2113,8 +2147,8 @@
       },
       "journal_id": {
         "type": "string",
-        "missing": 180,
-        "distinct_nonmissing": 26
+        "missing": 9,
+        "distinct_nonmissing": 62
       },
       "publication_date": {
         "type": "string",
@@ -2128,13 +2162,13 @@
       },
       "indexed_publication_date": {
         "type": "string",
-        "missing": 180,
-        "distinct_nonmissing": 282
+        "missing": 9,
+        "distinct_nonmissing": 393
       },
       "indexed_publication_year": {
         "type": "integer",
-        "missing": 180,
-        "distinct_nonmissing": 15
+        "missing": 9,
+        "distinct_nonmissing": 21
       },
       "publication_date_source": {
         "type": "string",
@@ -2144,12 +2178,12 @@
       "type": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 2
+        "distinct_nonmissing": 4
       },
       "abstract": {
         "type": "string",
-        "missing": 241,
-        "distinct_nonmissing": 322
+        "missing": 95,
+        "distinct_nonmissing": 468
       },
       "identity_verified": {
         "type": "string",

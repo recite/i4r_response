@@ -1,0 +1,2 @@
+article_id,expected_doi,returned_doi,openalex_id,reason
+i4r_f1246ddbd047c6,10.3982/ecta14281,10.2139/ssrn.2696236,https://openalex.org/W3124327028,doi_or_version_conflict

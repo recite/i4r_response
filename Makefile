@@ -15,6 +15,7 @@ registry:
 feasibility:
 	$(PYTHON) scripts/feasibility.py
 trajectories: registry
+	$(PYTHON) scripts/collect_grouped_citations.py --validate
 	$(PYTHON) scripts/trajectory_basics.py
 baseline: registry
 	$(PYTHON) scripts/i4r_match.py
