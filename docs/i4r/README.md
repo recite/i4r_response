@@ -35,14 +35,12 @@ The offline build uses committed source inventories, reviewed evidence, verified
 
 ## Resume acquisition
 
-Source collection, identity resolution, control selection and analysis are separate stages:
+The new study uses hosted references and retrieves only the assessment documents needed for claim review. Do not resume the old bulk document/archive collectors: those replication packages are outside this study’s scope. The commands below refresh catalog metadata and citation inputs only, and remain opt-in.
 
 ```sh
 uv run --locked python scripts/i4r_sources.py fetch
 uv run --locked python scripts/i4r_sources.py expand
 uv run --locked python scripts/i4r_sources.py inventory
-uv run --locked python scripts/i4r_sources.py documents
-uv run --locked python scripts/i4r_sources.py archives --max-archive-mb 3000
 uv run --locked python scripts/i4r_registry.py crossref --search-titles
 uv run --locked python scripts/i4r_registry.py resolve
 uv run --locked python scripts/i4r_citations.py candidates
@@ -65,7 +63,7 @@ Full-text PDFs and raw responses remain in ignored `private-data/i4r/`. Public f
 
 ## Remaining work
 
-Resolve missing/full-text-limited assessments and establish the eligible-assessment denominator. Provider and child-component queries have been checked for every OSF-linked catalog entry. Two projects are unauthorized, and non-OSF attachments remain a separate gap. The archive collector inventories ZIP contents and extracts bounded-size PDFs and text documents without executing their code. All 62 root ZIP archives have been acquired and inventoried. The acquisition target permits downloads up to 3,000 MiB and streams them to disk; already cached archives remain reusable under smaller download limits. All five nested ZIP files have also been inspected and contain data, original-paper documentation or unfilled templates; member hashes and review evidence are in `nested_archive_reviews.json`. Oversized members and extraction failures remain recorded. An extracted figure or original paper is not an assessment. Keep these cases unresolved until their evidence is examined.
+Resolve missing/full-text-limited assessments and establish the eligible-assessment denominator. Provider and child-component queries have been checked for every OSF-linked catalog entry. Two projects are unauthorized, and non-OSF attachments remain a separate gap. The archive collector inventories ZIP contents and extracts bounded-size PDFs and text documents without executing their code. All 62 root ZIP archives were acquired and inventoried in the historical project, then their cached ZIP bytes were removed under the new reference-only scope. The acquisition target permits downloads up to 3,000 MiB and streams them to disk; already cached archives remain reusable under smaller download limits. All five nested ZIP files have also been inspected and contain data, original-paper documentation or unfilled templates; member hashes and review evidence are in `nested_archive_reviews.json`. Oversized members and extraction failures remain recorded. An extracted figure or original paper is not an assessment. Keep these cases unresolved until their evidence is examined.
 
 Verify additional original-paper identities and earliest disclosure dates; retrieve complete journal risk sets and incoming citation edges; then inspect support, pretrends, timing and uncertainty. Automated title search requires exact normalized agreement, a unique DOI and at least four title words; ambiguous results remain in the queue. Short titles can still be verified against an independently supplied DOI. The control metadata step checks publisher dates separately from the indexed years used to collect comparable articles. Retraction Watch supplies dated retraction screens but cannot establish that all other public criticisms have been found.
 
