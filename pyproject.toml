@@ -1,0 +1,26 @@
+[project]
+name = "i4r-response"
+version = "0.1.0"
+description = "Research on responses to reproduction, robustness, and replication assessments"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "beautifulsoup4==4.14.3",
+  "numpy==2.3.5",
+  "scipy==1.16.3",
+  "scikit-learn==1.8.0",
+  "osqp==1.1.3",
+]
+
+[project.urls]
+Repository = "https://github.com/recite/i4r_response"
+Issues = "https://github.com/recite/i4r_response/issues"
+
+[dependency-groups]
+dev = ["black==26.5.1", "isort==8.0.1", "flake8==7.3.0"]
+
+[tool.uv]
+package = false
+
+[tool.isort]
+profile = "black"

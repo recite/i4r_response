@@ -1,0 +1,10 @@
+.venv/
+.Rlibrary/
+private-data/
+__pycache__/
+*.pyc
+.DS_Store
+.Rhistory
+.RData
+.ruff_cache/
+build/

@@ -1,0 +1,77 @@
+{
+  "assessment_population_enumerated": false,
+  "as_of": "2026-10-06",
+  "reason": "All 714 catalog sources have a documented scope review. Several large audits, unavailable or misdirected reports, and unnamed-team equivalences remain unresolved; the independent-assessment population is not yet fully enumerated.",
+  "unresolved_scope": [
+    {
+      "source": "Full assessment population",
+      "issue": "The explicit inventory contains observed assessments across all discussion-paper and report listings. Several large audits remain incompletely enumerated and some anonymous reports may duplicate other versions. assessment_scope.csv retains each unresolved source; reviewing every listing does not establish complete assessment coverage."
+    },
+    {
+      "source_id": "report_d20485341bfd",
+      "issue": "Actual attachments are verified Ciria exercise-review documents already represented by report_83fc3494a79a; intended effort-report target remains unresolved."
+    },
+    {
+      "source_ids": [
+        "report_98d325388526",
+        "report_adddaac3ae6f"
+      ],
+      "issue": "Repository provider and child-component queries return HTTP401; public file access unresolved."
+    },
+    {
+      "source": "Source review",
+      "issue": "Unresolved data/materiality disputes, absent reports, and non-OSF attachments remain. A successful repository query or an extracted plot is not a reviewed assessment."
+    },
+    {
+      "source_id": "dp_125",
+      "issue": "All 81 final-reanalysis article DOIs enumerated from Appendix B; Appendix C repeats that roster despite describing excluded papers. The stated 158-article attempted-reproduction universe is not fully identified, and article-specific equivalence-test findings remain unresolved."
+    }
+  ],
+  "completion_rule": "At least 90% of enumerated eligible article-specific assessments resolved; source fractions alone cannot pass this gate.",
+  "resolved_scope": [
+    {
+      "source": "https://osf.io/w7vpu/",
+      "result": "Enumerated 17 distinct reviewer-team/article assessments, with plans and replies linked separately. Vulnerability Campbell-team report is retained even without its own matched catalog entry."
+    },
+    {
+      "source_ids": [
+        "report_b600ae8b75e9",
+        "report_f9082a063d37",
+        "report_ffebba29c24d",
+        "report_e7a4f728faa3"
+      ],
+      "result": "Enumerated eight assessments across four projects. Computational and new-data assessments are distinct."
+    },
+    {
+      "source_id": "report_b6de6e872d53",
+      "result": "Chambru-team and Campbell-team Merchant Towns assessments distinguished."
+    },
+    {
+      "source": "OSF repositories",
+      "result": "Traversed providers and child-component relationships for all 378 OSF-linked catalog entries. No new files or nonempty child pages found; two projects returned authorization errors."
+    },
+    {
+      "source": "ZIP archives",
+      "result": "Inventoried all 62 root ZIP archives using streamed downloads; members retain archive/member hashes and original internal paths. Large archives are preserved locally."
+    },
+    {
+      "source": "Discussion-paper enumeration",
+      "result": "All331 discussion papers examined for independent team/article scope; assessment units, supporting replies and unresolved multi-article audits distinguished."
+    },
+    {
+      "source": "Nested archives",
+      "result": "All five nested archives reviewed;29 members individually hashed. Input data, original-paper documentation and unfilled templates contain no additional identified assessment. See nested_archive_reviews.json."
+    },
+    {
+      "source": "Frozen catalog scope review",
+      "result": "All 331 discussion papers and 383 report listings have explicit reviewed scope dispositions. Reports without reviewer bylines remain in the inventory with unresolved equivalence."
+    },
+    {
+      "source_ids": [
+        "dp_107",
+        "dp_287"
+      ],
+      "result": "The two versions describe the same 110 assessment entries. All are represented once:104 linked to individual assessments and6 retained as unresolved overview-only records. Four summaries lack reviewer identities; no claim of110 verified independent teams or completed substantive reviews."
+    }
+  ]
+}

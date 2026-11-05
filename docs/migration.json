@@ -1,0 +1,65 @@
+{
+  "source_repository": "https://github.com/recite/sig_fault",
+  "source_commit": "1efbfd2172879c93b9c8a5c31f601d1e53f976a2",
+  "source_worktree_note": "renv/activate.R had pre-existing modifications; not copied or changed.",
+  "imported_code": [
+    {
+      "path": "scripts/i4r_analysis.R",
+      "sha256": "1ce146693212b79c91febeeee64a4f33ad44828844f7de72bcf98d3facad8e50"
+    },
+    {
+      "path": "scripts/i4r_sources.py",
+      "sha256": "9d1080e4156639d44494cc00992ce93ab65726648380bb9f2ce7e8d1293e8708"
+    },
+    {
+      "path": "scripts/i4r_match.py",
+      "sha256": "8c25facfda62d5b22af1a8b83a6b94e587067639e05a03c910fc51d9a0663074"
+    },
+    {
+      "path": "scripts/i4r_report.py",
+      "sha256": "90e2e5d9276cc4e1d98dd41aac57fd1033711d8d4c24dd9f1830983940f4abe4"
+    },
+    {
+      "path": "scripts/i4r_aggregate.py",
+      "sha256": "a4fc076d85804b56f0b38962e34eca84ba18f117038950a9f2c5e79deae10e1b"
+    },
+    {
+      "path": "scripts/i4r_synthetic.py",
+      "sha256": "f1a25658f621c1a7cb1e6c0711216c579d98447daef9098ad5b9c8309dff65f5"
+    },
+    {
+      "path": "scripts/i4r_registry.py",
+      "sha256": "485d07ffc49c11bd0a39713d15f49a2ace9a906176905a4f44308e4bf7f971e0"
+    },
+    {
+      "path": "scripts/i4r_citations.py",
+      "sha256": "e1c9b0f6fdf377be4e64f71d80311220023dd5a82a4abadd1b38100c2b325d97"
+    },
+    {
+      "path": "tests/test_i4r_synthetic.py",
+      "sha256": "e22304448fe4d9f9a566334dddc46196bacf7f160b424fe09dff1faa832f26cc"
+    },
+    {
+      "path": "tests/test_i4r_aggregate.py",
+      "sha256": "74a5bb011f5959d04da7a8c8e8142f630aa2156c92bd3483975eec7e1c94055b"
+    },
+    {
+      "path": "tests/test_i4r.py",
+      "sha256": "868f0972ea220c41d69ecfd52b1f0d3d0ef47765a611aeac02ad62bdccfc56ae"
+    },
+    {
+      "path": "R/i4r.R",
+      "sha256": "7e8f1a421b894c12c9d49088dd40df544b9b14289fc3cf87047742af3cbb4637"
+    },
+    {
+      "path": "tests/testthat/test-i4r.R",
+      "sha256": "5d7750620a99aa6209d0a7dc3e2d45df658f30a60edea60639801c3cd723b88e"
+    },
+    {
+      "path": "renv.lock",
+      "sha256": "a20d28ff7e0fbaddd63b744355339cc6aa5188cd0b45fcbaaca46dce57308973"
+    }
+  ],
+  "private_cache": "Not copied to staging; will move locally after validation. Never publish private-data.",
+  "prior_outcome_exposure": "The inherited three-case annual-total and two-case synthetic analyses have already been examined; this is a retrospective feasibility study."
+}
