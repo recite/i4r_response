@@ -58,8 +58,8 @@ five nearest donors using standardized log(1 + annual citations) in baseline
 years, with equal coordinate weights and deterministic identity tie-breaking.
 Use donor-pool population standard deviations; omit constant coordinates. If all
 coordinates are constant, retain their tied distances and select deterministically,
-flagging that the citation histories cannot distinguish donors. No post-event
-citations enter selection. Missing baseline data for an otherwise eligible donor
+flagging that the citation histories cannot distinguish donors. Export matching distances to 12 decimal places for cross-platform stability;
+selection uses the full computed precision. No post-event citations enter selection. Missing baseline data for an otherwise eligible donor
 blocks matching; missing post-data for a selected donor blocks the contrast rather
 than causing replacement. Report distances, levels, slopes and donor reuse. Report per-coordinate differences in baseline log citations and whether the original falls outside the donor range; do not present a poor match as evidence of comparable counterfactual trends. Retain such cases as descriptive diagnostics rather than choosing a result-dependent caliper.
 

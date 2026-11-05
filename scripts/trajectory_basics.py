@@ -294,7 +294,7 @@ def build():
                         | dict(
                             control_id=control,
                             rank=rank,
-                            distance=distance,
+                            distance=round(distance, 12),
                             weight=1 / len(selected),
                             constant_baseline_coordinates=tied,
                             later_retraction=controls[control]["retracted"] == "yes",
