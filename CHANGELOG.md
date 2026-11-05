@@ -17,6 +17,8 @@ completion of citation collection or establish a causal effect.
 - Preserve the separate I4R registry, inherited comparisons, source receipts,
   missingness records and citation-context protocol.
 - Make numerical matching ties deterministic across platforms.
+- Persist prepaid reservations before dispatch so interrupted collection cannot
+  reset the cumulative spending cap.
 
 Collection stopped with 10,121 requested histories unavailable under the zero
 prepaid-spend limit. Matching quality, nonzero pre-period changes, heterogeneous

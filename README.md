@@ -76,7 +76,8 @@ uv run scripts/replication_collect.py histories --fetch
 
 OpenAlex collection requires an API key in `OPENALEX_API_KEY` or
 `~/.config/openalex/api_key`. History collection defaults to zero prepaid spend;
-`--max-paid-usd` sets an explicitly authorized cumulative prepaid cap. Metadata
+`--max-paid-usd` sets an explicitly authorized cumulative prepaid cap. Interrupted
+batches retain conservative spending reservations that count against that cap. Metadata
 and pool acquisition do not share that guard, so check your available API budget
 before running them. Cached responses allow resumption. Request URLs, retrieval
 dates and checksums are retained; credentials are not written to receipts.

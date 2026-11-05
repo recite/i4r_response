@@ -6,6 +6,7 @@ import argparse
 import collections
 import concurrent.futures
 import json
+import math
 import threading
 import urllib.request
 
@@ -208,6 +209,8 @@ def history_roster():
 
 
 def collect_histories(fetch=False, max_paid_usd=0):
+    if not math.isfinite(max_paid_usd) or max_paid_usd < 0:
+        raise ValueError("The prepaid cap must be finite and nonnegative")
     rows = history_roster()
     grouped.CACHE = CACHE / "grouped_citations"
     stopped = threading.Event()
@@ -217,12 +220,37 @@ def collect_histories(fetch=False, max_paid_usd=0):
     cost_path = OUT / "collection_cost.json"
     previous = json.loads(cost_path.read_text()) if cost_path.exists() else {}
     prior_paid = previous.get("provider_reported_prepaid_debit", 0)
+    unreconciled = previous.get("unreconciled_paid_reservations", 0) + previous.get(
+        "pending_paid_reservation", 0
+    )
+
+    def record(current, reservation=0):
+        debit = max(0, initial_balance - current["prepaid_remaining_usd"])
+        ledger = dict(
+            allowed_paid_usd=max_paid_usd,
+            provider_reported_prepaid_debit=round(prior_paid + debit, 8),
+            unreconciled_paid_reservations=round(unreconciled, 8),
+            pending_paid_reservation=round(reservation, 8),
+            daily_usage_increase=round(
+                current["daily_used_usd"] - initial["daily_used_usd"], 8
+            ),
+            qualification=(
+                "Account-level changes; concurrent activity may contribute. "
+                "Interrupted reservations consume the cap conservatively and "
+                "are not reported as verified charges."
+            ),
+        )
+        cost_path.parent.mkdir(parents=True, exist_ok=True)
+        temporary = cost_path.with_suffix(".json.tmp")
+        temporary.write_text(json.dumps(ledger, indent=2) + "\n")
+        temporary.replace(cost_path)
+
     for start in range(0, len(rows), 100):
         stop = start + 100
         batch = rows[start:stop]
         if fetch and not stopped.is_set():
             current = account()
-            paid = initial_balance - current["prepaid_remaining_usd"]
+            paid = max(0, initial_balance - current["prepaid_remaining_usd"])
             missing = sum(
                 not (
                     grouped.CACHE / (common.sha256(grouped.query(r).encode()) + ".json")
@@ -232,13 +260,23 @@ def collect_histories(fetch=False, max_paid_usd=0):
             reserve = missing * 4 * 0.0001
             if (
                 reserve
-                > current["daily_remaining_usd"] + max_paid_usd - paid - prior_paid
+                > current["daily_remaining_usd"]
+                + max_paid_usd
+                - paid
+                - prior_paid
+                - unreconciled
             ):
                 stopped.set()
                 print(
                     "Budget stop: remaining requests recorded as unavailable",
                     flush=True,
                 )
+            reservation = (
+                0
+                if stopped.is_set()
+                else max(0, reserve - current["daily_remaining_usd"])
+            )
+            record(current, reservation)
         with concurrent.futures.ThreadPoolExecutor(max_workers=8) as executor:
             for series, total in executor.map(
                 lambda r: grouped.acquire(r, not fetch, stopped), batch
@@ -254,26 +292,7 @@ def collect_histories(fetch=False, max_paid_usd=0):
     common.write_csv(OUT / "citations.csv", annual, grouped.CITATION_FIELDS)
     common.write_csv(OUT / "citation_totals.csv", totals, grouped.TOTAL_FIELDS)
     if fetch:
-        final = account()
-        (OUT / "collection_cost.json").write_text(
-            json.dumps(
-                dict(
-                    allowed_paid_usd=max_paid_usd,
-                    provider_reported_prepaid_debit=round(
-                        prior_paid + initial_balance - final["prepaid_remaining_usd"], 6
-                    ),
-                    daily_usage_increase=round(
-                        final["daily_used_usd"] - initial["daily_used_usd"], 6
-                    ),
-                    qualification=(
-                        "Account-level changes during this run; "
-                        "concurrent account activity may contribute."
-                    ),
-                ),
-                indent=2,
-            )
-            + "\n"
-        )
+        record(account())
     print(
         json.dumps(
             dict(collections.Counter(r["role"] + "/" + r["status"] for r in totals)),

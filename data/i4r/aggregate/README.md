@@ -2,7 +2,7 @@
 
 This directory contains an independently reproducible secondary measurement and matched analysis. OpenAlex's `counts_by_year` includes all citing document types; it is not the primary deduplicated article/review edge count. The source responses were retrieved October 5–6, 2026. The supported annual window is 2017–2025, including observed zero years. Missing fields, unresolved identities, stale snapshots and years outside that window are not converted to zero.
 
-Run `make i4r-aggregate` from the repository root. Re-extracting inputs requires the ignored source cache and `python3 scripts/i4r_aggregate.py extract`. No API request is made by either command. The main registry and `data/i4r/control_exclusions.csv` supply article identities, disclosure evidence and control eligibility.
+Run `uv run --locked make baseline` from the repository root. Re-extracting inputs requires the ignored source cache and `python3 scripts/i4r_aggregate.py extract`. No API request is made by either command. The main registry and `data/i4r/control_exclusions.csv` supply article identities, disclosure evidence and control eligibility.
 
 | File | Row unit and purpose |
 | --- | --- |

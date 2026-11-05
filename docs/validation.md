@@ -1,4 +1,7 @@
-# Validation
+# Initial migration validation
+
+This record covers the initial migration. Current release verification is recorded
+in the [GitHub releases](https://github.com/recite/i4r_response/releases).
 
 Local checks on 2026-11-04:
 
