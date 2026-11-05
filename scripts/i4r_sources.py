@@ -712,9 +712,10 @@ def fetch_archive(url, path, max_bytes):
     )
     digest, size = hashlib.sha256(), 0
     try:
-        with urllib.request.urlopen(request, timeout=60) as response, partial.open(
-            "wb"
-        ) as stream:
+        with (
+            urllib.request.urlopen(request, timeout=60) as response,
+            partial.open("wb") as stream,
+        ):
             declared = response.headers.get("Content-Length")
             if declared and int(declared) > max_bytes:
                 raise ValueError("archive_size_limit")

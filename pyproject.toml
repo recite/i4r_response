@@ -24,3 +24,6 @@ package = false
 
 [tool.isort]
 profile = "black"
+
+[tool.black]
+target-version = ["py311"]

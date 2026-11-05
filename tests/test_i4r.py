@@ -173,8 +173,9 @@ class AcquisitionTests(unittest.TestCase):
                     + text
                     + "</w:t></w:r></w:p></w:body></w:document>",
                 )
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "CACHE", Path(tmp)
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "CACHE", Path(tmp)),
         ):
             folder = Path(tmp) / "documents"
             folder.mkdir()
@@ -200,9 +201,12 @@ class AcquisitionTests(unittest.TestCase):
                 dict(article_id="control", status="complete", detail="")
             ],
         }
-        with patch.object(
-            sources, "read", side_effect=lambda name: records.get(name, [])
-        ), patch.object(sources, "write") as write:
+        with (
+            patch.object(
+                sources, "read", side_effect=lambda name: records.get(name, [])
+            ),
+            patch.object(sources, "write") as write,
+        ):
             citations.collect(targets_only=True)
             citations.collect()
         write.assert_not_called()
@@ -219,15 +223,17 @@ class AcquisitionTests(unittest.TestCase):
             "control_articles.csv": [article("control") | dict(openalex_id="W2")],
         }
         saved = {}
-        with patch.object(
-            sources, "read", side_effect=lambda name: records.get(name, [])
-        ), patch.object(
-            sources,
-            "write",
-            side_effect=lambda name, rows, fields: saved.update({name: rows}),
-        ), patch.object(
-            citations, "all_works", return_value=[]
-        ) as fetch:
+        with (
+            patch.object(
+                sources, "read", side_effect=lambda name: records.get(name, [])
+            ),
+            patch.object(
+                sources,
+                "write",
+                side_effect=lambda name, rows, fields: saved.update({name: rows}),
+            ),
+            patch.object(citations, "all_works", return_value=[]) as fetch,
+        ):
             citations.collect(targets_only=True)
         self.assertEqual(fetch.call_count, 1)
         self.assertIn(records["citations.csv"][0], saved["citations.csv"])
@@ -285,8 +291,9 @@ class AcquisitionTests(unittest.TestCase):
             paths.append(path)
             return {"results": [], "meta": {"count": 0, "next_cursor": None}}
 
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "fetch", request
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "fetch", request),
         ):
             citations.all_works({"filter": "publication_year:2020"}, Path(tmp))
             citations.all_works({"filter": "publication_year:2010-2020"}, Path(tmp))
@@ -389,8 +396,9 @@ class PipelineIntegrityTests(unittest.TestCase):
     def test_retraction_ledger_survives_csv_roundtrip(self):
         import i4r_registry as registry
 
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "DATA", Path(tmp)
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "DATA", Path(tmp)),
         ):
             sources.write(
                 "retractions.csv",
@@ -428,9 +436,11 @@ class PipelineIntegrityTests(unittest.TestCase):
     def test_frozen_metadata_rebuild_needs_no_private_cache(self):
         import i4r_registry as registry
 
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "DATA", Path(tmp)
-        ), patch.object(sources, "CACHE", Path(tmp) / "absent"):
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "DATA", Path(tmp)),
+            patch.object(sources, "CACHE", Path(tmp) / "absent"),
+        ):
             title = "An empirical study"
             aid = registry.article_id(title)
             source = dict.fromkeys(sources.SOURCE_FIELDS, "") | {
@@ -470,8 +480,9 @@ class PipelineIntegrityTests(unittest.TestCase):
         controls, aliases = citations.canonical_controls([first, second], [])
         self.assertEqual(len(controls), 1)
         self.assertEqual(len(aliases), 2)
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "DATA", Path(tmp)
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "DATA", Path(tmp)),
         ):
             sources.write(
                 "control_aliases.csv", aliases, ["alias_openalex_id", "article_id"]
@@ -483,8 +494,9 @@ class PipelineIntegrityTests(unittest.TestCase):
         self.assertFalse(citations.canonical_controls([first, second], [first])[0])
 
     def test_rate_limited_rerun_preserves_other_complete_histories(self):
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "DATA", Path(tmp)
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "DATA", Path(tmp)),
         ):
             import i4r_registry as registry
 
@@ -624,10 +636,11 @@ class CrossrefIdentityTests(unittest.TestCase):
 
         title = "An empirical study of schooling and wages"
         aid = registry.article_id(title)
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "ROOT", Path(tmp)
-        ), patch.object(sources, "DATA", Path(tmp) / "data"), patch.object(
-            sources, "CACHE", Path(tmp) / "private-data"
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "ROOT", Path(tmp)),
+            patch.object(sources, "DATA", Path(tmp) / "data"),
+            patch.object(sources, "CACHE", Path(tmp) / "private-data"),
         ):
             sources.write(
                 "sources.csv",
@@ -745,8 +758,9 @@ class NewIntegrityTests(unittest.TestCase):
     def test_grouped_download_repairs_stale_peer_and_records_actual_hash(self):
         import hashlib
 
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "CACHE", Path(tmp)
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "CACHE", Path(tmp)),
         ):
             folder = Path(tmp) / "documents"
             folder.mkdir()
@@ -774,11 +788,12 @@ class NewIntegrityTests(unittest.TestCase):
             )
 
     def test_extensionless_pdf_is_extracted(self):
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "CACHE", Path(tmp)
-        ), patch.object(sources, "fetch", return_value=b"%PDF-1.4\n"), patch.object(
-            sources.subprocess, "run"
-        ) as run:
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "CACHE", Path(tmp)),
+            patch.object(sources, "fetch", return_value=b"%PDF-1.4\n"),
+            patch.object(sources.subprocess, "run") as run,
+        ):
             result = sources.acquire_document(
                 dict(document_id="test", format="", url="https://example.org/file")
             )
@@ -904,9 +919,11 @@ class ArchiveAndUnitTests(unittest.TestCase):
                 z.writestr("../../outside.txt", "first")
                 z.writestr("../../outside.txt", "second")
                 z.writestr("folder/__MACOSX/._report.txt", "metadata")
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "ROOT", Path(tmp)
-        ), patch.object(sources, "CACHE", Path(tmp) / "cache"):
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "ROOT", Path(tmp)),
+            patch.object(sources, "CACHE", Path(tmp) / "cache"),
+        ):
             rows = sources.archive_members(
                 dict(source_id="s", document_id="z"), payload.getvalue()
             )
@@ -933,11 +950,12 @@ class ArchiveAndUnitTests(unittest.TestCase):
         with zipfile.ZipFile(payload, "w") as z:
             z.writestr("Report", b"%PDF-1.4\n")
             z.writestr("not_a_pdf.pdf", b"error page")
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "ROOT", Path(tmp)
-        ), patch.object(sources, "CACHE", Path(tmp) / "cache"), patch.object(
-            sources.subprocess, "run"
-        ) as run:
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "ROOT", Path(tmp)),
+            patch.object(sources, "CACHE", Path(tmp) / "cache"),
+            patch.object(sources.subprocess, "run") as run,
+        ):
             rows = sources.archive_members(
                 dict(source_id="s", document_id="z"), payload.getvalue()
             )
@@ -975,16 +993,20 @@ class ArchiveAndUnitTests(unittest.TestCase):
             ]
         }
         saved = {}
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "CACHE", Path(tmp)
-        ), patch.object(
-            sources, "read", side_effect=lambda name: records.get(name, [])
-        ), patch.object(
-            sources, "fetch_archive", side_effect=ValueError("archive_size_limit")
-        ), patch.object(
-            sources,
-            "write",
-            side_effect=lambda name, rows, fields: saved.update({name: rows}),
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "CACHE", Path(tmp)),
+            patch.object(
+                sources, "read", side_effect=lambda name: records.get(name, [])
+            ),
+            patch.object(
+                sources, "fetch_archive", side_effect=ValueError("archive_size_limit")
+            ),
+            patch.object(
+                sources,
+                "write",
+                side_effect=lambda name, rows, fields: saved.update({name: rows}),
+            ),
         ):
             sources.archives(workers=1, max_archive_mb=1)
         self.assertEqual(
@@ -1089,16 +1111,20 @@ class ArchiveAndUnitTests(unittest.TestCase):
             ]
         }
         saved = {}
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "CACHE", Path(tmp)
-        ), patch.object(
-            sources, "read", side_effect=lambda name: records.get(name, [])
-        ), patch.object(
-            sources, "fetch", side_effect=lambda url, path: pages[url]
-        ) as fetch, patch.object(
-            sources,
-            "write",
-            side_effect=lambda name, rows, fields: saved.update({name: rows}),
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "CACHE", Path(tmp)),
+            patch.object(
+                sources, "read", side_effect=lambda name: records.get(name, [])
+            ),
+            patch.object(
+                sources, "fetch", side_effect=lambda url, path: pages[url]
+            ) as fetch,
+            patch.object(
+                sources,
+                "write",
+                side_effect=lambda name, rows, fields: saved.update({name: rows}),
+            ),
         ):
             sources.expand_repositories()
         self.assertEqual(fetch.call_count, 6)
@@ -1408,16 +1434,18 @@ class AssessmentValidationTests(unittest.TestCase):
             )
 
         saved = {}
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "CACHE", Path(tmp)
-        ), patch.object(
-            sources, "read", side_effect=lambda name: records.get(name, [])
-        ), patch.object(
-            sources, "fetch", side_effect=fetch
-        ), patch.object(
-            sources,
-            "write",
-            side_effect=lambda name, rows, fields: saved.update({name: rows}),
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "CACHE", Path(tmp)),
+            patch.object(
+                sources, "read", side_effect=lambda name: records.get(name, [])
+            ),
+            patch.object(sources, "fetch", side_effect=fetch),
+            patch.object(
+                sources,
+                "write",
+                side_effect=lambda name, rows, fields: saved.update({name: rows}),
+            ),
         ):
             sources.expand_repositories()
         failed = [r for r in saved["repository_queries.csv"] if r["status"] == "failed"]
@@ -1444,10 +1472,11 @@ class RetractionRefreshTest(unittest.TestCase):
             "OriginalPaperDOI,RetractionNature,RetractionDate,RetractionDOI,"
             "Record ID,URLS\n10.1/database,Retraction,02/01/2024,10.1/new,9,\n"
         )
-        with tempfile.TemporaryDirectory() as tmp, patch.object(
-            sources, "DATA", Path(tmp)
-        ), patch.object(sources, "fetch", return_value=payload.encode()), patch.object(
-            registry, "build"
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            patch.object(sources, "DATA", Path(tmp)),
+            patch.object(sources, "fetch", return_value=payload.encode()),
+            patch.object(registry, "build"),
         ):
             sources.write("articles.csv", [{"doi": "10.1/database"}], ["doi"])
             sources.write("retractions.csv", [publisher, stale], fields)

@@ -8,3 +8,4 @@ __pycache__/
 .RData
 .ruff_cache/
 build/
+renv/staging/

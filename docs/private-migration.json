@@ -1,0 +1,13 @@
+{
+  "files": 15394,
+  "bytes": 6382058134,
+  "sha256_verified_after_move": true,
+  "retained_source_only": [
+    "external_opencitations"
+  ],
+  "shared_metadata_copied_back": [
+    "identities",
+    "retraction_watch.csv",
+    "retraction_watch.csv.source.json"
+  ]
+}

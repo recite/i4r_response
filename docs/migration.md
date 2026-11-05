@@ -22,3 +22,5 @@ Inherited result files and guides document prior exploratory analyses, not a new
 preregistered study. No license is inferred for downloaded third-party documents
 or replication packages. The new design is retrospective and its broader novelty
 and measurement feasibility remain under review.
+
+The local cache relocation was verified file by file with SHA-256 before and after the move. Aggregate counts are in private-migration.json; the file-level ledger remains private. The external OpenCitations cache stays in sig_fault, and its shared identity and retraction metadata were retained there. These small shared inputs remain necessary for that project’s external-registry checks.
