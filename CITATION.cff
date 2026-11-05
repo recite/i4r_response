@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "Please cite this research repository and the source datasets used in your analysis."
+type: software
+title: "Responses to replication assessments"
+authors:
+  - name: "Recite contributors"
+repository-code: "https://github.com/recite/i4r_response"
+url: "https://github.com/recite/i4r_response"
+abstract: >-
+  Reproducible citation comparisons around replication assessments, using I4R
+  and FLoRA source records. The initial research snapshot contains incomplete
+  collection and exploratory outcome-specific estimates.
+license: MIT
+keywords:
+  - replication
+  - reproducibility
+  - citations
+  - metascience
