@@ -1,0 +1,25 @@
+{
+  "source_pairs": 2850,
+  "replication_pairs": 2628,
+  "replication_original_dois": 2400,
+  "replication_year_screen_pairs": 1840,
+  "replication_year_screen_original_dois": 1663,
+  "year_screen_outcomes": {
+    "NA": 1,
+    "descriptive only": 4,
+    "failed": 711,
+    "mixed": 433,
+    "statistically successful but flawed": 6,
+    "successful": 682,
+    "uninformative": 3
+  },
+  "year_screen_binary_outcome_original_dois": 1272,
+  "replication_original_dois_overlapping_i4r": 9,
+  "prior_coded_reports": 191,
+  "prior_mapping_status": {
+    "multiple_originals_review_required": 5,
+    "no_assessment_link": 37,
+    "one_original": 149
+  },
+  "qualification": "Candidate records only; dates, identities, outcomes and repeated attempts require review before estimation."
+}

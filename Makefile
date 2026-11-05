@@ -1,8 +1,8 @@
 PYTHON ?= python3
 RSCRIPT ?= Rscript --vanilla
 
-.PHONY: check lint test registry feasibility trajectories baseline check-r restore-r
-check: lint test registry feasibility trajectories
+.PHONY: check lint test registry feasibility trajectories expansion baseline check-r restore-r
+check: lint test registry feasibility trajectories expansion
 lint:
 	$(PYTHON) -m black --check scripts tests
 	$(PYTHON) -m isort --check-only scripts tests
@@ -30,3 +30,6 @@ check-r: baseline
 	$(RSCRIPT) -e 'l <- unlist(lapply(c("R", "scripts", "tests/testthat"), lintr::lint_dir), recursive = FALSE); print(l); quit(status = as.integer(length(l) > 0))'
 restore-r:
 	$(RSCRIPT) -e 'if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv", repos = "https://cloud.r-project.org"); renv::restore(lockfile = "renv.lock", library = Sys.getenv("R_LIBS_USER"), prompt = FALSE)'
+
+expansion:
+	$(PYTHON) scripts/replication_sources.py summarize

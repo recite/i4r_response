@@ -92,3 +92,24 @@ matching eligibility and selected-case diagnostics from committed inputs.
 The original context feasibility design is preserved in
 [docs/context-design.md](docs/context-design.md); its post-only sampling rules
 are superseded by the second-stage before/after design.
+
+## Expanding beyond I4R
+
+`data/expansion/` contains a candidate roster from a pinned
+[FORRT FLoRA release](https://github.com/forrtproject/flora-validation) and the
+[earlier I4R coding](https://github.com/recite/i4replication). Source commits,
+checksums and retrieval dates are in `source_snapshots.csv`. The source labels
+are retained, including fractional prior scores and mixed replication outcomes.
+A report covering multiple originals is flagged for review; its score is not
+automatically assigned to every paper.
+
+The year screen asks whether bibliographic years permit two complete baseline
+years and one follow-up year through 2025. Passing it does not verify public
+result dates or qualify a paper for estimation. Repeated attempts, preprint and
+journal versions, registry dates and outcome definitions still need review.
+This candidate roster does not change the existing citation estimates.
+
+`python scripts/replication_sources.py fetch` retrieves only the pinned CSV
+snapshots using `gh`; `build` constructs the roster from those cached snapshots.
+`make expansion` rebuilds its counts from the committed roster without a network
+connection or private cache.

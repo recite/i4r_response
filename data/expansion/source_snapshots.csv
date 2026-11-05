@@ -1,0 +1,3 @@
+source,repository,revision,url,sha256,bytes,retrieved_at
+flora,forrtproject/flora-validation,fceed20eaee6c38411ab9972af90353312685136,https://github.com/forrtproject/flora-validation/blob/fceed20eaee6c38411ab9972af90353312685136/output/flora.csv,5025ad8261f690f91b50af19ff11c7463431a103570313506ed8d2747887f69e,13472058,2026-11-05T03:52:19.447707+00:00
+prior_i4r,recite/i4replication,8d2d94cc38b65c1930b48daeeca71628ea3bb384,https://github.com/recite/i4replication/blob/8d2d94cc38b65c1930b48daeeca71628ea3bb384/replication_of_specific_studies_coded.csv,81a2df799e292609b0e92103a811607ae6572f1e8e27a4def058b2e503e99671,215535,2026-11-05T03:52:20.304120+00:00
