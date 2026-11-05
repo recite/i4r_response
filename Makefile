@@ -1,8 +1,8 @@
 PYTHON ?= python3
 RSCRIPT ?= Rscript --vanilla
 
-.PHONY: check lint test registry feasibility trajectories expansion baseline check-r restore-r
-check: lint test registry feasibility trajectories expansion
+.PHONY: check lint test registry feasibility trajectories expansion historical historical-r baseline check-r restore-r
+check: lint test registry feasibility trajectories expansion historical
 lint:
 	$(PYTHON) -m black --check scripts tests
 	$(PYTHON) -m isort --check-only scripts tests
@@ -25,7 +25,7 @@ baseline: registry
 	$(RSCRIPT) scripts/i4r_analysis.R data/i4r/aggregate docs/i4r/aggregate-results.md
 	$(PYTHON) scripts/i4r_synthetic.py
 	$(PYTHON) scripts/i4r_report.py
-check-r: baseline
+check-r: baseline historical-r
 	$(RSCRIPT) -e 'testthat::test_dir("tests/testthat", stop_on_failure = TRUE)'
 	$(RSCRIPT) -e 'l <- unlist(lapply(c("R", "scripts", "tests/testthat"), lintr::lint_dir), recursive = FALSE); print(l); quit(status = as.integer(length(l) > 0))'
 restore-r:
@@ -33,3 +33,9 @@ restore-r:
 
 expansion:
 	$(PYTHON) scripts/replication_sources.py summarize
+
+historical:
+	$(PYTHON) scripts/replication_events.py
+	$(PYTHON) scripts/replication_analysis.py
+historical-r:
+	$(RSCRIPT) scripts/replication_inference.R

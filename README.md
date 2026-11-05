@@ -8,7 +8,8 @@ annual citation histories and matched comparison papers. The full I4R inventory
 is the starting population; favorable, unfavorable, mixed and unresolved findings
 remain distinct. Citation counts measure attention, not agreement.
 
-**Status: data construction and selected-case diagnostics.** Read the short
+**Status: expanded historical sample, with citation collection partly complete.**
+Read the [historical success/failure estimates](docs/historical-results.md), the short
 [computed status report](docs/trajectory-results.md) and [study design](docs/study-design.md).
 The available dates and citation histories do not yet support an I4R-wide conclusion.
 
@@ -113,3 +114,17 @@ This candidate roster does not change the existing citation estimates.
 snapshots using `gh`; `build` constructs the roster from those cached snapshots.
 `make expansion` rebuilds its counts from the committed roster without a network
 connection or private cache.
+
+The historical extension verifies DOI metadata with Crossref and OpenAlex, then
+constructs first-recorded journal-report events before filtering by outcome.
+`replication_metadata.py --fetch`, `replication_collect.py pools --fetch`, and
+`replication_collect.py histories --fetch` acquire metadata, controls and annual
+citations respectively. History collection defaults to **zero prepaid spend**;
+`--max-paid-usd` is only for an explicitly authorized cap. Cached responses allow
+resumption. `metadata_sources.csv` stores actual request URLs and checksums once;
+metadata rows carry canonical record URLs and receipt hashes.
+
+`replication_analysis.py` produces equal-original success/failure contrasts;
+`replication_inference.R` estimates their uncertainty with shared-report and
+reused-paper clustering. First recorded publication is not verified first public
+disclosure, and source-coded failure can concern only some of a paper's findings.

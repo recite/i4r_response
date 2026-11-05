@@ -1,0 +1,22 @@
+{
+  "originals": 2394,
+  "eligible": 1068,
+  "eligible_outcomes": {
+    "successful": 568,
+    "failed": 500
+  },
+  "exclusions": {
+    "candidate_for_matching": 1068,
+    "insufficient_full_baseline_age": 351,
+    "nonbinary_or_unresolved_outcome": 845,
+    "insufficient_complete_followup_years": 197,
+    "original_current_retraction_status_not_clear": 92,
+    "report_title_review_required": 8,
+    "original_document_type_review_required": 164,
+    "original_identity_or_journal_metadata_unavailable": 149,
+    "original_journal_year_missing": 87,
+    "original_title_review_required": 17,
+    "no_verified_report_publication": 347,
+    "earlier_or_same_year_unverified_report": 20
+  }
+}

@@ -51,7 +51,7 @@ For conservative eligibility, a partial publication date must unambiguously
 precede that year. Also show annual paths and the number of contributing originals.
 
 Use exact journal and indexed publication year consistently for both arms.
-Retrieve the complete donor pool before matching. Exclude known assessed originals,
+Use a complete census where available or an explicitly labeled seeded sample of up to 20 candidates from the journal/year pool; never substitute the API's default first page. Exclude known assessed originals,
 items retracted before or during the event year and documented nonresearch items; report the limits of the screen.
 Later retractions remain in the main donor pool and are flagged for a sensitivity excluding them. Undated known retractions remain ineligible. Do not silently widen to adjacent years. Within the eligible pool, select up to
 five nearest donors using standardized log(1 + annual citations) in baseline
@@ -132,3 +132,49 @@ The same review clarified second-stage sampling before text-access filtering,
 work-level aggregation of multiple passages, sampling weights, and the distinction
 between pre-existing criticism and awareness of an assessment. This review is not
 independent re-adjudication of the underlying I4R reports.
+
+## Historical replication expansion
+
+The historical extension uses the pinned FLoRA roster in `data/expansion/`.
+Its exposure is the earliest recorded journal-publication year of a replication
+report, verified against Crossref metadata. It does not establish the first
+public disclosure of results. Select chronology from all recorded replication
+attempts before filtering by outcome or observation window. Combine reports in
+the same first year; conflicting outcomes remain mixed. An earlier or same-year
+unverified report blocks that chronology. Preserve earlier reproduction/I4R and
+later-assessment flags. One original receives one weight per window.
+
+Estimate the publication response separately for source-coded successful and
+failed replications, and their difference. Source outcome criteria vary and are
+not independent adjudications of every finding. Original document types other
+than research articles and mismatched titles require review. Exclude known
+assessed originals and assessment reports from controls; missing publisher
+metadata, flagged nonresearch items and currently flagged retractions are
+ineligible in this extension. The current-retraction restriction differs from the
+older I4R rule and may exclude some later-retracted papers.
+
+Keep the existing three-before/three-after primary window and the separately
+reported two-before/one-after window. Match up to five donors on pre-period
+citations from fixed seeded journal/year samples of 20. A missing baseline in an
+otherwise eligible donor blocks the comparison; a missing selected follow-up
+does not trigger replacement. Counts are OpenAlex citing article/review works,
+using individually filtered queries and complete year-bin reconciliation.
+The attempted reference-ID/year batching optimization failed an independent
+single-target count check and is not used.
+
+Change-score WLS with case fixed effects assigns weight one to each original
+and total weight one to its donors. The successful and failed coefficients must
+numerically equal the corresponding means of the original-level contrasts.
+Two-way paper/report clustering accounts for reused donors and shared reports;
+connected same-year report bundles share a cluster. Use fixest's nonnested
+parameter correction, cluster correction and minimum-cluster t degrees of
+freedom. Do not repair a non-positive-semidefinite covariance silently. These
+intervals condition on the matches and classifications; they do not capture
+uncertainty in source coding or all potentially shared project influences.
+
+Report donor support, report concentration, control reuse and held-out pre-period
+changes. Sensitivities omit the largest report, later assessments in the outcome
+window, prior other assessments, or targets outside the candidate pool's baseline
+range. Those exclusions change the population. The difference of the two ATTs
+uses their joint covariance; it is not the causal effect of failing rather than
+succeeding, because replication outcomes are not randomly assigned.

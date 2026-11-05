@@ -40,7 +40,7 @@ POOL_FIELDS = [
 MEMBER_FIELDS = ["pool_id", "article_id", "openalex_id", "doi"]
 
 
-def sample_pool(article, offline):
+def sample_pool(article, offline, fetcher=None):
     year = article["indexed_publication_year"]
     query = (
         f"primary_location.source.id:{article['journal_id']},"
@@ -66,7 +66,7 @@ def sample_pool(article, offline):
             path = CACHE / (common.sha256(url.encode()) + ".json")
             if offline and not path.exists():
                 raise FileNotFoundError("response_not_cached")
-            payloads.append(sources.fetch(url, path))
+            payloads.append((fetcher or sources.fetch)(url, path))
         count = payloads[0]["meta"]["count"]
         works = payloads[1]["results"]
         if len(works) != min(SAMPLE, count) or len({w["id"] for w in works}) != len(
