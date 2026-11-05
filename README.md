@@ -35,9 +35,10 @@ context-review feasibility sample.
 
 `data/i4r/` contains the existing source and assessment registry. Generated coverage
 and the deterministic review queue are in `data/feasibility/`. Native reports,
-publisher PDFs, downloaded archives, and API responses live in ignored
+publisher PDFs and API responses are temporary caches in ignored
 `private-data/i4r/` locally. They are not distributed on GitHub. Public access does
-not establish redistribution rights; original sources retain their own rights.
+not establish redistribution rights; original sources retain their own rights. Bulk replication ZIPs were discarded after
+receipt verification; see the [cache policy](docs/cache-policy.md).
 
 ## Reproduce
 
