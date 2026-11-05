@@ -14,9 +14,11 @@ sig_fault cohorts. All ordinary builds use local committed inputs.
 
 Private source material is moved locally, never uploaded. Download receipts retain
 original URLs, hashes and retrieval timestamps; the private-data/i4r relative
-layout is preserved. Existing evidence and acquisition state are not thrown away
-because a ZIP contains large datasets. Public inventory files are not a backup of
-the private source bytes. Keep a separate verified backup for long-term retention.
+layout was preserved during relocation. The subsequent reference-only scope
+removed 62 unnecessary replication ZIP caches after receipt verification; see
+[the cache policy](cache-policy.md) and archive-cache-pruning.json. Assessment
+evidence and retrieval records remain. References do not guarantee that a host
+will retain an unchanged copy forever.
 
 Inherited result files and guides document prior exploratory analyses, not a new
 preregistered study. No license is inferred for downloaded third-party documents
