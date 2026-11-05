@@ -11,3 +11,5 @@ Local checks on 2026-11-04:
 - Independent design review and fixes are recorded in independent-review.md.
 
 The baseline and feasibility builds ran without a private source cache. No original research code in downloaded replication archives was executed. GitHub CI separately exercises Python and R builds.
+
+Clean GitHub runners exposed an omitted ggplot2 dependency and platform differences in formatting targets and CSV line endings. The lockfile now includes the plotting dependency closure, Black has an explicit Python syntax target, and CSV output uses LF consistently.

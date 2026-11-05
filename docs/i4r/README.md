@@ -22,13 +22,13 @@ The design compares citation changes from the full year before disclosure to the
 
 ## Rebuild without network access
 
-Install R dependencies with the repository's `make restore`. Install the Python extension dependencies, then run:
+Install the locked dependencies and run the standalone repository checks:
 
 ```sh
-python3 -m pip install -r requirements-i4r.txt
-make i4r
-make i4r-test
-make i4r-aggregate
+uv sync --locked
+make restore-r
+uv run --locked make check
+uv run --locked make check-r
 ```
 
 The offline build uses committed source inventories, reviewed evidence, verified bibliographic metadata, and any completed citation tables. `source_adjudications.csv` records the catalog review decisions; `claim_adjudications.json` preserves claim-specific consequences, disputes and dating evidence; `curated_claims.csv` supplies the verified and unresolved claims to the registry. `assessment_inventory.json` records observed article assessments in reviewed discussion papers and report bundles, with unresolved reviewer identities explicit; its generated tables link each unit to its original article, reports, plans and replies. These units are distinct from claim-level error records. `assessment_scope.csv` shows which catalog sources have been fully enumerated, are supporting replies or non-assessments, or remain open. It regenerates registry tables, matching decisions, analysis outputs, and the coverage report. Private PDFs and API caches are not needed. Empty analysis output is an explicit incomplete-data status, not a zero effect.
@@ -38,22 +38,26 @@ The offline build uses committed source inventories, reviewed evidence, verified
 Source collection, identity resolution, control selection and analysis are separate stages:
 
 ```sh
-make i4r-sources
-python3 scripts/i4r_registry.py crossref --search-titles
-python3 scripts/i4r_registry.py resolve
-python3 scripts/i4r_citations.py candidates
-python3 scripts/i4r_citations.py control-metadata
-python3 scripts/i4r_citations.py retractions
-python3 scripts/i4r_citations.py fetch
-python3 scripts/i4r_sources.py manifest
-make i4r
+uv run --locked python scripts/i4r_sources.py fetch
+uv run --locked python scripts/i4r_sources.py expand
+uv run --locked python scripts/i4r_sources.py inventory
+uv run --locked python scripts/i4r_sources.py documents
+uv run --locked python scripts/i4r_sources.py archives --max-archive-mb 3000
+uv run --locked python scripts/i4r_registry.py crossref --search-titles
+uv run --locked python scripts/i4r_registry.py resolve
+uv run --locked python scripts/i4r_citations.py candidates
+uv run --locked python scripts/i4r_citations.py control-metadata
+uv run --locked python scripts/i4r_citations.py retractions
+uv run --locked python scripts/i4r_citations.py fetch
+uv run --locked python scripts/i4r_sources.py manifest
+uv run --locked make baseline
 ```
 
 The optional `fetch --targets-only` command collects affected-article histories independently of control-date verification. Matching waits for all otherwise eligible controls to have complete pre-year histories.
 
-The secondary annual totals can be re-extracted from cached OpenAlex responses with `python3 scripts/i4r_aggregate.py extract`. Its public inputs, source provenance, candidate exclusions and selected matches are in `data/i4r/aggregate/`; `make i4r-aggregate` reproduces the analysis without those private caches. [The secondary design](aggregate-design.md) records its outcome and rematching differences. The explicit control-exclusion ledger removes verified frontmatter, financial reports, introductions, article assessments/replies and a historical republication from both analyses. Substantive research is not excluded merely because it is presented as a lecture or methodological article.
+The secondary annual totals can be re-extracted from cached OpenAlex responses with `uv run --locked python scripts/i4r_aggregate.py extract`. Its public inputs, source provenance, candidate exclusions and selected matches are in `data/i4r/aggregate/`; `uv run --locked make baseline` reproduces the analysis without those private caches. [The secondary design](aggregate-design.md) records its outcome and rematching differences. The explicit control-exclusion ledger removes verified frontmatter, financial reports, introductions, article assessments/replies and a historical republication from both analyses. Substantive research is not excluded merely because it is presented as a lecture or methodological article.
 
-`make i4r-sources` resumes the frozen inventory. To deliberately refresh the catalog, first run `python3 scripts/i4r_sources.py discover`; changing the study cutoff requires an explicit design update. Document extraction also requires Poppler's `pdftotext`.
+The source commands above resume the frozen inventory. To deliberately refresh the catalog, first run `uv run --locked python scripts/i4r_sources.py discover`; changing the study cutoff requires an explicit design update. Document extraction also requires Poppler's `pdftotext`.
 
 OSF acquisition has resumed after an earlier quota limit. OpenAlex metadata and citation collection has resumed, but anonymous daily quotas still interrupt acquisition. The coverage report records completed histories; pending or incomplete histories are excluded from matching. Optional `OSF_TOKEN` (or `OSF_API_TOKEN`) and `OPENALEX_API_KEY` environment variables enable authenticated access. Tokens are sent in headers and are not written into public data or logs. See the official [OSF API](https://developer.osf.io/) and [OpenAlex authentication](https://help.openalex.org/api/authentication/) documentation. The collector respects rate-limit checkpoints; successful responses are cached with source URLs and hashes.
 
