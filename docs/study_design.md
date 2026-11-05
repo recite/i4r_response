@@ -28,7 +28,8 @@ reference/year aggregation did not reproduce the individual totals.
 
 ## Comparison and estimand
 
-The main window has three full calendar years before and three after the report,
+The main design matches on five complete pre-report years and measures change
+between the last three full calendar years before and three after the report,
 excluding the report year. The shorter window has two before and one after.
 Originals and controls must have been published before the first baseline year.
 These windows overlap and their sample sizes must not be added.
@@ -39,6 +40,10 @@ nonresearch items, missing publisher metadata, title conflicts and current
 retraction flags. This restriction can exclude later-retracted papers; it does
 not establish that retained controls were free of every public criticism.
 
+Retain complete histories from publication. Use five pre-report years for primary
+matching, with three-, eight-, and ten-year sensitivity comparisons. Hold the
+three-before/three-after outcome definition fixed across matching lengths; also
+compare the same originals to separate matching from sample composition.
 Select up to five controls using mean squared differences in baseline
 log(1 + citations), standardized by donor-pool population standard deviations.
 Omit constant coordinates. Round distances to ten decimal places and break ties
@@ -73,3 +78,10 @@ A causal interpretation requires parallel counterfactual trends, no anticipation
 and no differential coincident shocks. The current matching and pre-period
 diagnostics do not establish those assumptions. Citation counts do not establish
 agreement with, or reliance on, a challenged finding.
+
+The research note and its supplementary design specify the preferred full
+same-journal/year pools, dated control eligibility, cohort-specific event studies,
+and the distinction between implemented results and collection still required.
+See [the note](../ms/main.pdf) and [design source](../ms/design.tex). Five-year
+matching was chosen from coverage counts after the three-year results were seen,
+before examining the longer-history estimates; this is an exploratory revision.

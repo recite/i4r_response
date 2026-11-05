@@ -1,4 +1,4 @@
-.PHONY: restore analysis format lint test check ci-docker clean
+.PHONY: restore analysis format lint test check paper manuscript ci-docker clean
 
 restore:
 	Rscript --vanilla -e 'if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv", repos = "https://cloud.r-project.org"); renv::load(project = getwd()); renv::restore(prompt = FALSE)'
@@ -15,13 +15,20 @@ lint:
 test: analysis
 	Rscript -e 'testthat::test_dir("tests/testthat", stop_on_failure = TRUE)'
 
+manuscript:
+	cd ms && latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
+
+paper: analysis
+	$(MAKE) manuscript
+
 check: lint test
+	$(MAKE) manuscript
 
 ci-docker:
 	docker run --rm -v "$(CURDIR):/project" -w /project \
 		-v r_renv_cache:/root/.cache/R/renv \
 		-e RENV_CONFIG_REPOS_OVERRIDE=https://packagemanager.posit.co/cran/latest \
-		rocker/r-ver:4.6.0 bash -c "make restore check"
+		rocker/r-ver:4.6.0 bash -c "apt-get update && apt-get install -y --no-install-recommends texlive-xetex texlive-latex-extra latexmk && make restore check"
 
 clean:
 	Rscript --vanilla -e 'unlink("data/derived", recursive = TRUE)'

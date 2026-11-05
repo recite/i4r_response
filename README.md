@@ -5,27 +5,31 @@ between successful and failed replications? We compare original papers with
 papers from the same journal and publication year, matching on citation histories
 before the replication report.
 
-[Results](docs/results.md) · [Research design](docs/study_design.md) · [Data](data/README.md)
+[Research note (PDF)](ms/main.pdf) · [Results](docs/results.md) · [Research design](docs/study_design.md) · [Data](data/README.md)
 
 <!-- results:start -->
-The current analysis includes **282 three-year comparisons** and **365 shorter-window comparisons**. Collection is incomplete, and matching diagnostics limit causal interpretation.
+The current analysis includes **227 comparisons matched on five pre-report years** and **365 shorter-window comparisons**. Collection is incomplete, and matching diagnostics limit causal interpretation.
 <!-- results:end -->
 
 ![Citation responses and uncertainty](figs/replication_estimates.png)
 
 ## Reproduce
 
-Use R 4.6 and Make:
+Use R 4.6, Make, and a LaTeX distribution providing XeLaTeX, BibTeX, and latexmk:
 
 ```sh
 make restore
 make check
 ```
 
+`make paper` rebuilds the research note in `ms/main.pdf` from the same analysis;
+it also requires XeLaTeX, BibTeX, and latexmk. The LaTeX source and validated
+bibliography are in `ms/`.
+
 `make restore` installs the versions in `renv.lock`. `make analysis` rebuilds the
 current results and figure from committed inputs, without an API key or private
 cache. `make check` also runs R lint and focused checks of numerical results,
-chronology, data integrity and spending limits. `make ci-docker` runs the same
+chronology, data integrity and spending limits, then compiles the research note. `make ci-docker` runs the same
 checks in the standard `rocker/r-ver:4.6.0` image.
 
 ## Files and pipeline

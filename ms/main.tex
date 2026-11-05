@@ -1,0 +1,124 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{fontspec}
+\usepackage[nopatch=footnote]{microtype}
+\usepackage{booktabs,graphicx,amsmath,array,float}
+\usepackage[round,authoryear]{natbib}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl,setspace}
+\setstretch{1.15}
+\setlength{\emergencystretch}{2em}
+\graphicspath{{../figs/}}
+\input{../tabs/macros.tex}
+\title{Do citations respond to replication results?\thanks{Data and code: \url{https://github.com/recite/i4r_response}. This research note reports an incomplete collection snapshot; the estimates are exploratory.}}
+\author{Gaurav Sood}
+\date{}
+\hypersetup{pdfauthor={Gaurav Sood},pdftitle={Do citations respond to replication results?}}
+\widowpenalty=10000
+\clubpenalty=10000
+\renewcommand{\topfraction}{.9}
+\renewcommand{\textfraction}{.1}
+\renewcommand{\floatpagefraction}{.8}
+\begin{document}
+\maketitle
+\begin{abstract}
+\noindent Citations may respond to a replication report without reflecting whether its findings were favorable. We compare changes in annual citations to replicated papers with changes to papers from the same journal and publication year, matched on prior citations. Among \MainDifferenceN{} originals matched on five pre-report years, the matched change is \MainSuccessfulEstimate{} citations per year following a successful replication and \MainFailedEstimate{} following a failed replication. The failed-minus-successful difference is \MainDifferenceEstimate{} (95\% interval \MainDifferenceInterval{}). This interval permits differences in either direction. Collection is incomplete, many originals are more highly cited than their controls, and held-out pre-period changes favor the originals. These estimates therefore do not establish a causal effect of replication reports. They describe citation responses in an observed subset and identify the comparison and measurement problems that must be resolved before interpreting continued citation as a failure of scientific correction.
+\end{abstract}
+
+\section{Citation responses and scientific correction}
+Failed replications are not followed by a clearly different citation response from successful replications in the comparisons available here. The estimated difference is \MainDifferenceEstimate{} citations per paper per year, with a 95\% interval of \MainDifferenceInterval{}. The interval is too wide to treat the two responses as equivalent, and the comparison papers do not closely reproduce the originals' citation histories.
+
+Replication can change the evidential basis for a finding. If later researchers learn that a finding does not replicate, they may stop relying on it, qualify their use of it, or defend it against the challenge. Citation counts capture only part of that response. A citation can endorse a claim, criticize it, or use a method unrelated to the challenged finding. A replication report can also draw attention to a paper and increase citations while reducing confidence in its conclusion.
+
+Earlier studies do not give a single answer about citation penalties. Nonreplicable papers in prominent replication projects received more citations than replicable papers, and the gap persisted after replication \citep{serra2021}. Analyses of psychology replications found little evidence of adjustment, or small and uncertain differences between successful and failed replications \citep{schafmeister2021,vonhippel2022}. Another analysis found declines after failed replications \citep{clark2023}. Citation-context studies also show why counts alone are insufficient: favorable use can persist alongside some increase in criticism \citep{hardwicke2021}. Continued citation and a citation penalty can coexist.
+
+This note extends the comparison to a common registry of replication attempts. It uses the same event-selection and matching rules for successful and failed replications and reports both the estimated responses and the quality of the comparisons. The contribution at this stage is a reproducible comparison across recorded assessments, rather than a new demonstration that challenged research continues to be cited. The current data cannot distinguish continued attention from continued reliance on the challenged result.
+
+\section{Data and research design}
+The FORRT Library of Reproduction and Replication Attempts (FLoRA) links original papers to reports and records replication authors' descriptions of their outcomes \citep{flora2026}. We retain those source labels. A failed replication is not a finding that the original paper is false in every respect, and success criteria differ across reports. I4R records supply additional assessment histories and help exclude already assessed papers from the control pool. The binary outcome analysis here uses FLoRA replication labels; it is not an estimate of the response to I4R computational reproductions.
+
+We verify article identities, titles, types, journals, and publication dates with Crossref and OpenAlex metadata. For each original, we select the earliest recorded journal-report year before filtering on outcome. Conflicting outcomes in that year receive a mixed label. An unverified report that could precede or coincide with the selected report prevents confident assignment. This procedure avoids selecting a convenient later failure after an earlier success. Journal publication is observable, but a preprint, presentation, or other disclosure may have made the result public earlier.
+
+The roster contains \RosterOriginals{} originals; \EligibleOriginals{} pass the event and metadata screens for matching, including \EligibleSuccessful{} with successful and \EligibleFailed{} with failed replications. These are not all completed comparisons. The primary five-year matching analysis contains \MainSuccessfulN{} successful and \MainFailedN{} failed originals, with report years from \FirstEventYear{} to \LastEventYear{}. A shorter window contains \ShortDifferenceN{} originals. The samples overlap and must not be added. Collection stopped under its spending limit with \StoppedHistories{} requested histories still unavailable; missing histories are never coded as zero. This is a collection constraint, not evidence that those histories do not exist.
+
+Annual citations count OpenAlex article and review works citing a paper, by the citing work's publication year, through \CitationsThrough{} \citep{openalex2022}. Complete histories must reconcile with the retrieved total. We compare the mean of the three full years before the report with the mean of the three full years after it, excluding the report year. The shorter window uses two years before and one after. Both originals and controls must have been published before the first baseline year.
+
+Each comparison starts with a fixed seeded sample of up to twenty papers from the original's journal and indexed publication year. We exclude known assessed originals and assessment reports, nonresearch items, current retraction flags, and unresolved metadata conflicts. Current retraction status is a retrospective restriction; it does not establish that retained controls escaped every criticism. Matching within journal and year follows an established approach to citation responses \citep{furman2012,schafmeister2021}.
+
+We use five pre-report years to select up to five controls with the smallest average squared distance in baseline $\log(1+\text{citations})$, scaling each year's difference by the candidate pool's population standard deviation and omitting constant coordinates. Ties are resolved by paper identifier after rounding distances to ten decimal places. Post-report outcomes do not enter selection. A missing eligible candidate's baseline blocks matching; missing follow-up for a selected control blocks the comparison rather than prompting replacement. There is no distance caliper, so the nearest available controls can still be poor matches.
+
+For original $i$ with controls $C_i$, the comparison is
+\begin{equation}
+ d_i = \left(\overline{Y}_{i,\mathrm{post}}-\overline{Y}_{i,\mathrm{pre}}\right)
+ -\frac{1}{|C_i|}\sum_{j\in C_i}
+ \left(\overline{Y}_{j,\mathrm{post}}-\overline{Y}_{j,\mathrm{pre}}\right).
+\end{equation}
+We average $d_i$ with equal weight per original within each replication-outcome group. The difference between these averages is the failed-minus-successful contrast. All quantities are in citations per paper per year. They are neither percentage changes nor effects for the population of all published research.
+
+For uncertainty, a weighted regression of change scores on original-by-outcome indicators and comparison fixed effects reproduces these group means. Each original has weight one and its controls jointly have weight one. We cluster by physical paper, because controls can be reused, and by connected report bundle, because a report can assess several originals. Intervals use a cluster correction, a correction for nonnested fixed effects, and a $t$ critical value based on the smaller cluster count minus one. They condition on the selected matches and source labels. Interpreting the averages as effects on assessed papers would additionally require parallel counterfactual trends, no anticipation, and no differential coincident shocks. Comparing the averages does not identify the causal effect of failure rather than success.
+
+\section{Results and comparison quality}
+Both outcome groups have positive point estimates of matched changes (Figure~\ref{fig:response}). The successful group changes by \MainSuccessfulEstimate{} citations per year (95\% interval \MainSuccessfulInterval{}); the failed group changes by \MainFailedEstimate{} (\MainFailedInterval{}). Their difference, \MainDifferenceEstimate{}, is uncertain. A shorter window, also using only two pre-report years for matching, gives a failed-minus-successful difference of \ShortDifferenceEstimate{} (\ShortDifferenceInterval{}). These estimates do not show that researchers ignore replication results, nor do the positive changes establish that reports increase citations.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{citation_response.pdf}
+\caption{Matched changes after successful and failed replications. Points are mean original-minus-control changes and their failed-minus-successful difference; bars are 95\% intervals clustered by physical paper and connected report bundle, conditional on matches and labels. Five-year matching includes \MainDifferenceN{} originals and three-year matching includes \ThreeHistoryN{}. Both use the last three pre-report years and first three post-report years to measure change, omitting the report year. Panels share an axis, and zero marks no matched change or no difference between outcome groups.}
+\label{fig:response}
+\end{figure}
+
+The originals are substantially more highly cited than their controls in the last three years before the report (Figure~\ref{fig:paths}). Successful originals average \SuccessfulPre{} annual citations against \SuccessfulControlPre{} for their controls; failed originals average \FailedPre{} against \FailedControlPre{}. Controls' citations fall slightly after the report while originals' citations rise (Table~\ref{tab:diagnostics}). Level differences alone do not refute parallel trends, but they show that the sampled controls do not closely approximate these originals. In \OutsideSupport{} of \MainDifferenceN{} comparisons (\OutsidePercent\%), an original lies outside its entire candidate pool's citation range in at least one of the five matching years.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\linewidth]{citation_paths.pdf}
+\caption{Observed citation paths in the primary five-year matching sample, by replication outcome. Each original has equal weight; its controls first receive equal weight within its comparison. Lines show descriptive means for the same \MainSuccessfulN{} successful and \MainFailedN{} failed originals across all plotted years, without inferential intervals. Both panels use common axes. The report year is omitted and lines break there. These are observed paths, not estimated counterfactuals.}
+\label{fig:paths}
+\end{figure}
+
+A held-out comparison also favors originals before the matching window. Using the two preceding years, the mean original-minus-control annual change is \SuccessfulPlacebo{} for \SuccessfulPlaceboN{} successful originals and \FailedPlacebo{} for \FailedPlaceboN{} failed originals. These are descriptive diagnostics on older subsets, not formal tests of parallel trends. Their direction is consistent with preexisting differences in citation growth that could contribute to the positive post-report contrasts.
+
+Report concentration and control reuse also matter. The main sample has \ReportClusters{} connected report bundles, with \LargestReport{} originals in the largest bundle, and \DistinctControls{} distinct controls, one used in as many as \MaximumReuse{} comparisons. Clustering addresses dependence in estimated uncertainty but cannot repair weak comparisons. Excluding the largest report, excluding later or prior other assessments, and restricting originals to their candidate pool's range leaves the failed-minus-successful intervals spanning zero (Table~\ref{tab:sensitivity}). Each restriction changes the population being described.
+
+\section{What the comparison establishes}
+The observed subset does not provide a precise distinction between citation responses to successful and failed replications. Incomplete collection also prevents treating it as representative of eligible assessed papers. Supplementary Section~\ref{sec:design} specifies longer histories, full same-journal/year candidate pools, and dated control eligibility. Finishing collection will expand the comparison, but will not by itself resolve the large baseline gaps, earlier disclosure, or differences in why particular papers were replicated.
+
+A stronger claim about scientific correction requires observing how later papers use the challenged finding. The relevant unit is a claim in a citing passage: does the passage rely on that finding as evidence, acknowledge the replication, qualify its use, or offer a defense? Existing citation-context research provides a precedent for that distinction \citep{hardwicke2021}. A further measurement step is a before-and-after sample of accessible citing texts, with claim-specific coding checked against human judgments. No completed context ratings are reported here. Even an unqualified citation cannot establish that its author knew of the replication or that every use of the original paper was unwarranted.
+
+\paragraph{Data and code.} The public repository contains the pinned source references, metadata, collected histories, analysis code, and generated exhibits. Run \texttt{make restore} and \texttt{make paper} with R and XeLaTeX to rebuild the note; \texttt{make check} verifies the analysis and compiles the manuscript. Data attribution and reuse terms are in \texttt{data/README.md}. Every reported estimate and sample count is generated from the analysis rather than copied into the manuscript.
+
+\clearpage
+\begingroup
+\small
+\bibliographystyle{plainnat}
+\bibliography{references}
+\endgroup
+
+\clearpage
+\appendix
+\section{Diagnostics and sensitivity}
+\begin{table}[H]
+\centering
+\caption{Citation levels and comparison quality in the primary five-year matching sample.}
+\label{tab:diagnostics}
+\small
+\input{../tabs/diagnostics.tex}
+\par\smallskip\begin{minipage}{\linewidth}\footnotesize
+Pre- and post-report levels average the last three years before and first three after, omitting the report year. Control levels average within comparison before averaging across originals. Outside-range counts refer to at least one baseline year outside the full eligible candidate pool's range during the five matching years. The held-out diagnostic compares changes between the two years preceding the matching window; its sample requires sufficiently old originals and controls with complete histories. It has no reported inferential interval.
+\end{minipage}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Failed-minus-successful contrasts under sample restrictions.}
+\label{tab:sensitivity}
+\small
+\input{../tabs/sensitivity.tex}
+\par\smallskip\begin{minipage}{\linewidth}\footnotesize
+Differences and intervals are in citations per paper per year. Intervals use two-way paper/report clustering as in Figure~\ref{fig:response}. ``No later assessment'' excludes originals with another recorded assessment within the outcome window. ``No prior other assessment'' excludes flags for earlier reproduction or I4R overlap. ``Within candidate range'' excludes originals outside the pool's range in any baseline year. These are different analytic populations, not repeated estimates on a fixed sample.
+\end{minipage}
+\end{table}
+\clearpage
+\input{design}
+\end{document}

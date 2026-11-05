@@ -12,4 +12,6 @@ jobs:
           r-version: '4.6.0'
           use-public-rspm: true
       - uses: r-lib/actions/setup-renv@v2
+      - name: Install LaTeX
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends texlive-xetex texlive-latex-extra latexmk
       - run: make check

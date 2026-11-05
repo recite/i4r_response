@@ -1,5 +1,5 @@
 source("scripts/00_config.R")
-for (module in c("data.R", "events.R", "matching.R", "analysis.R", "report.R")) {
+for (module in c("data.R", "events.R", "matching.R", "analysis.R", "report.R", "paper.R", "design.R")) {
   source(project_file("R", module))
 }
 for (path in c(derived_dir, table_dir, figure_dir)) dir.create(path, recursive = TRUE, showWarnings = FALSE)

@@ -14,3 +14,13 @@ renv/library/
 renv/local/
 renv/lock/
 .Rproj.user/
+
+ms/*.aux
+ms/*.bbl
+ms/*.blg
+ms/*.fdb_latexmk
+ms/*.fls
+ms/*.log
+ms/*.out
+ms/*.xdv
+ms/*.synctex.gz

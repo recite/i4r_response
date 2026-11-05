@@ -9,4 +9,7 @@ cache_dir <- project_file("private-data", "replications")
 last_citation_year <- 2025L
 comparison_seed <- 20261028L
 comparison_sample_size <- 20L
-analysis_windows <- list(three_year = c(before = 3L, after = 3L), short = c(before = 2L, after = 1L))
+analysis_windows <- list(
+  five_year = c(before = 5L, after = 3L), three_year = c(before = 3L, after = 3L),
+  short = c(before = 2L, after = 1L)
+)

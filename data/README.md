@@ -58,8 +58,9 @@ research inputs, not separate three-paper or synthetic-control results.
 | `estimates.csv` | Window, outcome and sensitivity specification, with uncertainty |
 | `paths.csv`, `balance.csv`, `dependence.csv` | Annual paths, baseline differences and shared-report/control dependence |
 
-`three_year` uses three complete calendar years before and three after the report;
-`short` uses two before and one after. Both omit the report year and stop in 2025.
+`five_year` matches on five pre-report years and measures change over the last
+three pre-report and first three post-report years. `three_year` uses three complete calendar years before and three after the report;
+`short` uses two before and one after. All omit the report year and stop in 2025.
 `article_id` identifies the original in a comparison; `control_id` identifies a
 selected control. In the stacked `changes.csv`, `paper_id` identifies the physical
 paper and `case_id` the comparison. Reused papers retain their identifiers.
@@ -69,3 +70,7 @@ means the complete comparison can be calculated. `budget_stop` means a requested
 history was not collected under the spending cap; it never means zero citations.
 Missing source values remain missing, and duplicate keys or inconsistent year
 counts stop the analysis.
+
+`design_*.csv` report matching-history coverage, estimates on available and common
+samples, and held-out pre-report validation. Generated LaTeX tables and
+macros feed the research note directly.

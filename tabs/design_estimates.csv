@@ -1,0 +1,25 @@
+outcome,estimate,standard_error,lower,upper,originals,report_clusters,physical_papers,inference,matching_years,sample
+successful,2.994685990338204,1.577883126206603,-0.11752515149775711,6.106897132174165,138,193,1270,two-way paper/report clusters; conditional on matches and labels,3,available
+failed,3.2805555555555985,1.6074459293227852,0.11003484457982671,6.45107626653137,144,193,1270,two-way paper/report clusters; conditional on matches and labels,3,available
+failed_minus_successful,0.2858695652173946,1.9778449024236322,-3.6152247806893816,4.18696391112417,282,193,1270,two-way paper/report clusters; conditional on matches and labels,3,available
+successful,0.39689922480620204,3.965343524904991,-7.509771197907699,8.303569647520103,43,72,479,two-way paper/report clusters; conditional on matches and labels,3,common
+failed,1.148717948717944,1.14221590173649,-1.1287958731973406,3.426231770633229,39,72,479,two-way paper/report clusters; conditional on matches and labels,3,common
+failed_minus_successful,0.751818723911742,4.127381272506779,-7.477945790973387,8.98158323879687,82,72,479,two-way paper/report clusters; conditional on matches and labels,3,common
+successful,2.052753623188427,1.755216097847143,-1.4171883500033151,5.522695596380169,115,142,975,two-way paper/report clusters; conditional on matches and labels,5,available
+failed,3.0203869047619314,1.8542521710346014,-0.645342600024783,6.686116409548646,112,142,975,two-way paper/report clusters; conditional on matches and labels,5,available
+failed_minus_successful,0.9676332815735043,2.3471418854831,-3.6725054201303884,5.607771983277397,227,142,975,two-way paper/report clusters; conditional on matches and labels,5,available
+successful,0.37054263565891654,3.9658919044001397,-7.5372212247124,8.278306496030233,43,72,476,two-way paper/report clusters; conditional on matches and labels,5,common
+failed,0.6769230769230744,1.1634344207135978,-1.642899270182121,2.99674542402827,39,72,476,two-way paper/report clusters; conditional on matches and labels,5,common
+failed_minus_successful,0.30638044126415787,4.133776939169566,-7.93613667074619,8.548897553274506,82,72,476,two-way paper/report clusters; conditional on matches and labels,5,common
+successful,0.19209039548022477,2.898238233642628,-5.560867029354949,5.9450478203153985,59,97,623,two-way paper/report clusters; conditional on matches and labels,8,available
+failed,0.3906666666666652,0.9714044870428933,-1.5375560002559978,2.318889333589328,50,97,623,two-way paper/report clusters; conditional on matches and labels,8,available
+failed_minus_successful,0.19857627118644045,3.0567758732001558,-5.8690758809562285,6.2662284233291095,109,97,623,two-way paper/report clusters; conditional on matches and labels,8,available
+successful,0.3596899224806192,3.9641156754077262,-7.544532237871499,8.263912082832737,43,72,477,two-way paper/report clusters; conditional on matches and labels,8,common
+failed,0.5982905982905959,1.16293270213401,-1.7205313503803052,2.917112546961497,39,72,477,two-way paper/report clusters; conditional on matches and labels,8,common
+failed_minus_successful,0.23860067580997674,4.131825924632903,-8.000026223704419,8.477227575324372,82,72,477,two-way paper/report clusters; conditional on matches and labels,8,common
+successful,0.32868217054263055,3.970467079009551,-7.588204328897858,8.245568669983118,43,72,480,two-way paper/report clusters; conditional on matches and labels,10,available
+failed,0.5282051282051259,1.1751589545386318,-1.8149952753615781,2.87140553177183,39,72,480,two-way paper/report clusters; conditional on matches and labels,10,available
+failed_minus_successful,0.19952295766249534,4.141434823095188,-8.058263541213076,8.457309456538066,82,72,480,two-way paper/report clusters; conditional on matches and labels,10,available
+successful,0.32868217054263055,3.970467079009551,-7.588204328897858,8.245568669983118,43,72,480,two-way paper/report clusters; conditional on matches and labels,10,common
+failed,0.5282051282051259,1.1751589545386318,-1.8149952753615781,2.87140553177183,39,72,480,two-way paper/report clusters; conditional on matches and labels,10,common
+failed_minus_successful,0.19952295766249534,4.141434823095188,-8.058263541213076,8.457309456538066,82,72,480,two-way paper/report clusters; conditional on matches and labels,10,common

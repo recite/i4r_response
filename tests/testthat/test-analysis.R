@@ -62,3 +62,25 @@ testthat::test_that("matching uses standardised baseline distances and never rep
     compute_contrast("target", matches$control_id, histories, 1:2, 3), "incomplete_selected_followup"
   )
 })
+
+testthat::test_that("longer matching preserves the last-three-year outcome contrast", {
+  matched <- readRDS(file.path(derived_dir, "matched_data.rds"))
+  histories <- make_history(read_study_inputs()$citations)
+  case <- matched$cases[matched$cases$window == "five_year", ][1, ]
+  controls <- matched$matches$control_id[
+    matched$matches$article_id == case$article_id & matched$matches$window == "five_year"
+  ]
+  ids <- c(case$article_id, controls)
+  pre <- as.character(seq.int(case$event_year - 3L, case$event_year - 1L))
+  post <- as.character(seq.int(case$event_year + 1L, case$event_year + 3L))
+  changes <- vapply(ids, function(id) mean(histories[[id]][post]) - mean(histories[[id]][pre]), numeric(1))
+  expected <- changes[1] - mean(changes[-1])
+  testthat::expect_equal(case$difference_in_changes, unname(expected), tolerance = 1e-10)
+  panel <- matched$changes[
+    matched$changes$article_id == case$article_id & matched$changes$window == "five_year",
+  ]
+  testthat::expect_equal(unname(panel$change), unname(changes), tolerance = 1e-10)
+  testthat::expect_equal(
+    sort(unique(matched$paths$event_time[matched$paths$window == "five_year"])), c(-5:-1, 1:3)
+  )
+})

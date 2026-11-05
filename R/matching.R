@@ -49,7 +49,7 @@ published_before <- function(controls, year) {
     suppressWarnings(as.integer(substr(controls$publication_date, 1, 4))) < year
 }
 
-match_events <- function(events, inputs) {
+match_events <- function(events, inputs, windows = analysis_windows, contrast_before = 3L) {
   events <- events[events$status == "candidate_for_matching", ]
   histories <- make_history(inputs$citations)
   candidates <- inputs$comparison_articles
@@ -66,10 +66,11 @@ match_events <- function(events, inputs) {
     pool_index <- match(paste(event$journal_id, event$indexed_year, event$type, sep = "|"), pool_keys)
     pool <- pools[pool_index, ]
     pool_id <- if (is.na(pool_index)) "" else pool$event_id
-    for (window in names(analysis_windows)) {
-      span <- analysis_windows[[window]]
+    for (window in names(windows)) {
+      span <- windows[[window]]
       pre <- seq.int(year - span["before"], year - 1L)
       post <- seq.int(year + 1L, year + span["after"])
+      contrast_pre <- if (is.null(contrast_before)) pre else tail(pre, min(length(pre), contrast_before))
       key <- tibble::tibble(article_id = target, window = window, outcome = event$outcome, event_year = year)
       reasons <- character()
       if (max(post) > last_citation_year) reasons <- c(reasons, "insufficient_complete_followup_years")
@@ -87,7 +88,7 @@ match_events <- function(events, inputs) {
         result <- tryCatch(
           {
             selected <- rank_controls(target, donors, histories, pre)
-            compute_contrast(target, selected$control_id, histories, pre, post)
+            compute_contrast(target, selected$control_id, histories, contrast_pre, post)
           },
           error = function(error) error
         )
@@ -139,7 +140,7 @@ match_events <- function(events, inputs) {
           case_id = paste(window, target, sep = "_"), paper_id = ids, target = as.integer(is_target),
           weight = ifelse(is_target, 1, 1 / length(controls)),
           change = rowMeans(values[, length(pre) + seq_along(post), drop = FALSE]) -
-            rowMeans(values[, seq_along(pre), drop = FALSE])
+            rowMeans(values[, match(contrast_pre, pre), drop = FALSE])
         )),
         paths = dplyr::bind_cols(key[rep(1, nrow(paths)), ], paths),
         balance = dplyr::bind_cols(key[rep(1, length(pre)), ], tibble::tibble(
