@@ -87,6 +87,11 @@ def present(value):
     return value.strip() not in {"", "NA"}
 
 
+def doi(value):
+    normalized = common.normalize_doi(value)
+    return normalized if re.fullmatch(r"10\.\d{4,9}/\S+", normalized) else ""
+
+
 def timing(row):
     original, replication = year(row["year_o"]), year(row["year_r"])
     if original is None or replication is None:
@@ -164,7 +169,7 @@ def build():
         row.update(
             year_screen=timing(raw),
             original_in_i4r=common.normalize_doi(raw["doi_o"]) in assessed,
-            doi_pair_available=present(raw["doi_o"]) and present(raw["doi_r"]),
+            doi_pair_available=bool(doi(raw["doi_o"]) and doi(raw["doi_r"])),
             date_review_required=True,
             registry_record="registr" in raw["journal_r"].lower(),
         )
@@ -188,11 +193,14 @@ def summarize():
     eligible = [r for r in reps if r["year_screen"] == "passes_year_screen_only"]
 
     def original_count(rs):
-        return len({r["doi_o"] for r in rs if present(r["doi_o"])})
+        return len({doi(r["doi_o"]) for r in rs if doi(r["doi_o"])})
 
     prior = common.read_csv(OUT / "prior_i4r_labels.csv")
     summary = dict(
         source_pairs=len(rows),
+        noncanonical_original_identifier_rows=sum(
+            present(r["doi_o"]) and not doi(r["doi_o"]) for r in rows
+        ),
         replication_pairs=len(reps),
         replication_original_dois=original_count(reps),
         replication_year_screen_pairs=len(eligible),

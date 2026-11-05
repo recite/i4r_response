@@ -52,3 +52,11 @@ class SourceTests(unittest.TestCase):
         self.assertFalse(sources.present("NA"))
         self.assertFalse(sources.present(""))
         self.assertTrue(sources.present("10.1234/example"))
+
+    def test_non_doi_identifiers_do_not_count_as_verified_doi_pairs(self):
+        self.assertEqual(
+            sources.doi("https://doi.org/10.1234/Example"), "10.1234/example"
+        )
+        self.assertEqual(sources.doi("https://www.jstor.org/stable/123"), "")
+        self.assertEqual(sources.doi("djaerv_2018"), "")
+        self.assertEqual(sources.doi("NA"), "")
