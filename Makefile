@@ -28,7 +28,7 @@ ci-docker:
 	docker run --rm -v "$(CURDIR):/project" -w /project \
 		-v r_renv_cache:/root/.cache/R/renv \
 		-e RENV_CONFIG_REPOS_OVERRIDE=https://packagemanager.posit.co/cran/latest \
-		rocker/r-ver:4.6.0 bash -c "apt-get update && apt-get install -y --no-install-recommends texlive-xetex texlive-latex-extra latexmk && make restore check"
+		rocker/r-ver:4.6.0 bash -c "apt-get update && apt-get install -y --no-install-recommends texlive-xetex texlive-latex-extra texlive-fonts-recommended latexmk && make restore check"
 
 clean:
 	Rscript --vanilla -e 'unlink("data/derived", recursive = TRUE)'
