@@ -1,0 +1,15 @@
+{
+  "assessment_units": 590,
+  "originals": 551,
+  "verified_original_identities": 543,
+  "originals_with_publisher_dates": 543,
+  "originals_with_verified_curated_challenge_dates": 35,
+  "originals_with_complete_article_review_histories": 21,
+  "originals_with_all_type_annual_histories": 369,
+  "contrasts_by_measure_window": {
+    "all_type_annual_totals/short_2pre_1post": 3,
+    "article_review_edges/balanced_3pre_3post": 1,
+    "all_type_annual_totals/balanced_3pre_3post": 1,
+    "article_review_edges/short_2pre_1post": 1
+  }
+}

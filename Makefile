@@ -1,8 +1,8 @@
 PYTHON ?= python3
 RSCRIPT ?= Rscript --vanilla
 
-.PHONY: check lint test registry feasibility baseline check-r restore-r
-check: lint test registry feasibility
+.PHONY: check lint test registry feasibility trajectories baseline check-r restore-r
+check: lint test registry feasibility trajectories
 lint:
 	$(PYTHON) -m black --check scripts tests
 	$(PYTHON) -m isort --check-only scripts tests
@@ -14,6 +14,8 @@ registry:
 	$(PYTHON) scripts/i4r_registry.py validate
 feasibility:
 	$(PYTHON) scripts/feasibility.py
+trajectories: registry
+	$(PYTHON) scripts/trajectory_basics.py
 baseline: registry
 	$(PYTHON) scripts/i4r_match.py
 	$(RSCRIPT) scripts/i4r_analysis.R

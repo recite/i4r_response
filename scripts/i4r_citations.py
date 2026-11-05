@@ -25,13 +25,15 @@ EDGE_FIELDS = [
 ]
 
 
-def all_works(params, folder):
+def all_works(params, folder, max_pages=None):
     cursor = "*"
     seen = set()
     works = []
     while cursor:
         if cursor in seen:
             raise ValueError("Repeated API cursor")
+        if max_pages is not None and len(seen) >= max_pages:
+            raise ValueError("Citation query exceeds configured page limit")
         seen.add(cursor)
         query_key = hashlib.sha256(
             json.dumps(params, sort_keys=True).encode()
@@ -253,7 +255,7 @@ def normalize_edges(article_id, works):
     return list(unique.values())
 
 
-def collect(targets_only=False):
+def collect(targets_only=False, article_ids=None, max_pages=None):
     rows = sources.read("citations.csv")
     logs = {r["article_id"]: r for r in sources.read("citation_retrieval.csv")}
     edges = sources.read("citation_edges.csv")
@@ -272,6 +274,15 @@ def collect(targets_only=False):
         r for r in sources.read("articles.csv") if r["article_id"] in target_ids
     ]
     controls = [] if targets_only else sources.read("control_articles.csv")
+    if article_ids:
+        available = sources.read("articles.csv") + controls
+        unknown = set(article_ids) - {r["article_id"] for r in available}
+        if unknown:
+            raise ValueError(
+                "Unknown requested article IDs: " + ",".join(sorted(unknown))
+            )
+        articles = [r for r in available if r["article_id"] in set(article_ids)]
+        controls = []
     for index, article in enumerate(articles + controls, 1):
         aid = article["article_id"]
         if (
@@ -295,7 +306,7 @@ def collect(targets_only=False):
                     "type,referenced_works"
                 ),
             }
-            works = all_works(params, sources.CACHE / "citations" / aid)
+            works = all_works(params, sources.CACHE / "citations" / aid, max_pages)
             if any(
                 not set(target_ids).intersection(w.get("referenced_works", []))
                 for w in works
@@ -398,12 +409,24 @@ if __name__ == "__main__":
             "is being verified."
         ),
     )
+    parser.add_argument(
+        "--article-id",
+        action="append",
+        help="Fetch only these original/control IDs; repeat as needed.",
+    )
+    parser.add_argument(
+        "--max-pages-per-work",
+        type=int,
+        help="Stop a work query before exceeding this page count.",
+    )
     args = parser.parse_args()
+    if args.max_pages_per_work is not None and args.max_pages_per_work < 1:
+        parser.error("--max-pages-per-work must be positive")
     if args.command == "fetch":
-        collect(args.targets_only)
+        collect(args.targets_only, args.article_id, args.max_pages_per_work)
         raise SystemExit(0)
-    if args.targets_only:
-        parser.error("--targets-only requires fetch")
+    if args.targets_only or args.article_id or args.max_pages_per_work:
+        parser.error("Collection options require fetch")
     {
         "candidates": candidates,
         "control-metadata": control_metadata,

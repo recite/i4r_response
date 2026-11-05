@@ -23,8 +23,8 @@ The inventory covers both discovered catalogs. Assessment coverage remains incom
 | OSF sources checked for components/providers | 378 |
 | Distinct candidate control articles | 1022 |
 | Controls with verified publisher dates | 1000 |
-| Complete affected/control citation histories | 426 |
-| Deduplicated article–citing-work relationships | 32069 |
+| Complete affected/control citation histories | 452 |
+| Deduplicated article–citing-work relationships | 34691 |
 | Source units after verified duplicate links | 631 |
 | Verified duplicate listings collapsed | 83 |
 | Source units containing article-specific assessments | 539 |

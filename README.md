@@ -1,22 +1,23 @@
 # Responses to replication assessments
 
-Do later researchers use a challenged finding, qualify it, or cite an unaffected
-part of the original paper? This study uses the Institute for Replication (I4R)
-collection to investigate responses to specific assessments. It distinguishes
-demonstrated material errors, limited errors, robustness concerns, new-data
-replication results, and favorable assessments.
+Do citations to an original study change after a replication or reanalysis becomes
+public, compared with papers from the same journal and publication year?
 
-**Status: feasibility study.** Showing that criticized papers continue to receive
-citations is not a new contribution. Prior studies have also examined citation
-penalties, acknowledgment, and citation context. The proposed extension is an
-auditable link from a particular assessed claim and its corrected interpretation
-to how subsequent research uses it. Whether the available cases support a useful
-comparison remains to be established.
+We start with original-publication dates, assessment-publication/disclosure dates,
+annual citation histories and matched comparison papers. The full I4R inventory
+is the starting population; favorable, unfavorable, mixed and unresolved findings
+remain distinct. Citation counts measure attention, not agreement.
 
-Start with the [prior-work assessment](docs/prior-work.md),
-[study design](docs/study-design.md), and [computed feasibility report](docs/feasibility.md).
-The [review protocol](docs/context-review.md) defines the first measurement test.
-No new claim-use ratings or causal effects have been estimated.
+**Status: data construction and selected-case diagnostics.** Read the short
+[computed status report](docs/trajectory-results.md) and [study design](docs/study-design.md).
+The available dates and citation histories do not yet support an I4R-wide conclusion.
+
+A second stage will sample citing papers before and after a challenge, download
+available texts, extract citation passages, and use evidence-backed LLM judgments
+to distinguish reliance on the challenged finding, concern, correction uptake,
+defense and unaffected uses. The existing 49-work post-only queue is an access
+pilot, not a before/after result. No LLM-judged outcome has been produced.
+See [prior work](docs/prior-work.md) and the [context protocol](docs/context-review.md).
 
 ## What is preserved
 
@@ -30,8 +31,8 @@ The inherited [three-case citation comparison](docs/i4r/aggregate-results.md) an
 results. They are preserved for reproducibility, not evidence that the new study
 has succeeded. Their outcomes were already examined before this design was written.
 The old restrictive material-error matching design is documented in
-[docs/i4r/design.md](docs/i4r/design.md); it is distinct from the new descriptive
-context-review feasibility sample.
+[docs/i4r/design.md](docs/i4r/design.md). The new broader roster and exact-year
+matching diagnostic are separate outputs in `data/trajectories/`.
 
 `data/i4r/` contains the existing source and assessment registry. Generated coverage
 and the deterministic review queue are in `data/feasibility/`. Native reports,
@@ -53,7 +54,7 @@ uv run --locked make check-r
 ```
 
 `make check` runs formatting, import sorting, lint, numerical/data-integrity tests,
-registry reconstruction, and feasibility construction. `make check-r` reproduces
+registry reconstruction, feasibility construction, and citation-trajectory construction. `make check-r` reproduces
 the inherited citation comparisons and runs R tests and lint. These builds use
 committed inputs and require no source acquisition or private cache.
 
@@ -69,11 +70,12 @@ source snapshots must be checked before refreshing. The frozen catalog ends on
 2026-10-05 and completed citation years end in 2025. A partial 2026 is not treated
 as a complete outcome year.
 
-## Next decision
+## Current priorities
 
-Audit the sampled citing texts with the [coding protocol](docs/context-review.md),
-measure full-text access and independent-reader agreement, and finish the
-assessment/date crosswalk for comparison groups. Scale collection only if this
-produces a reliable, substantive measurement beyond bibliographic co-citation.
-The existing `replication_citations` project concerns broader replication-program
-citation trajectories; this repository owns the I4R assessment-response study.
+Verify first-public assessment dates across the full roster, review assessment
+categories, and complete exact journal/year donor pools and citation histories.
+`make trajectories` rebuilds the roster, date-evidence links, citation panel,
+matching eligibility and selected-case diagnostics from committed inputs.
+The original context feasibility design is preserved in
+[docs/context-design.md](docs/context-design.md); its post-only sampling rules
+are superseded by the second-stage before/after design.

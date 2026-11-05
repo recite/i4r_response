@@ -535,7 +535,7 @@
     }
   },
   "citation_edges.csv": {
-    "rows": 32069,
+    "rows": 34691,
     "duplicate_keys": 0,
     "key": [
       "article_id",
@@ -545,17 +545,17 @@
       "article_id": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 416
+        "distinct_nonmissing": 442
       },
       "citing_work_id": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 28253
+        "distinct_nonmissing": 30453
       },
       "citing_doi": {
         "type": "string",
-        "missing": 105,
-        "distinct_nonmissing": 28154
+        "missing": 128,
+        "distinct_nonmissing": 30335
       },
       "publication_year": {
         "type": "integer",
@@ -565,7 +565,7 @@
       "publication_date": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 2966
+        "distinct_nonmissing": 3050
       },
       "type": {
         "type": "string",
@@ -575,7 +575,7 @@
     }
   },
   "citation_retrieval.csv": {
-    "rows": 437,
+    "rows": 462,
     "duplicate_keys": 0,
     "key": [
       "article_id"
@@ -584,7 +584,7 @@
       "article_id": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 437
+        "distinct_nonmissing": 462
       },
       "status": {
         "type": "string",
@@ -593,13 +593,13 @@
       },
       "detail": {
         "type": "string",
-        "missing": 435,
-        "distinct_nonmissing": 2
+        "missing": 461,
+        "distinct_nonmissing": 1
       }
     }
   },
   "citations.csv": {
-    "rows": 2956,
+    "rows": 3190,
     "duplicate_keys": 0,
     "key": [
       "article_id",
@@ -609,7 +609,7 @@
       "article_id": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 422
+        "distinct_nonmissing": 448
       },
       "year": {
         "type": "integer",
@@ -619,7 +619,7 @@
       "citations": {
         "type": "number",
         "missing": 0,
-        "distinct_nonmissing": 111
+        "distinct_nonmissing": 112
       },
       "status": {
         "type": "string",
@@ -1295,7 +1295,7 @@
     }
   },
   "match_candidates.csv": {
-    "rows": 1095,
+    "rows": 1020,
     "duplicate_keys": 0,
     "key": [
       "event_id",
@@ -1316,11 +1316,11 @@
       "control_id": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 535
+        "distinct_nonmissing": 510
       },
       "distance": {
         "type": "number",
-        "missing": 1095,
+        "missing": 1020,
         "distinct_nonmissing": 0
       },
       "eligible": {
@@ -1835,7 +1835,7 @@
     }
   },
   "source_manifest.csv": {
-    "rows": 6520,
+    "rows": 6561,
     "duplicate_keys": 0,
     "key": [
       "path"
@@ -1844,27 +1844,27 @@
       "path": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 6520
+        "distinct_nonmissing": 6561
       },
       "url": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 5555
+        "distinct_nonmissing": 5596
       },
       "retrieved_at": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 5776
+        "distinct_nonmissing": 5817
       },
       "sha256": {
         "type": "string",
         "missing": 0,
-        "distinct_nonmissing": 5122
+        "distinct_nonmissing": 5163
       },
       "bytes": {
         "type": "integer",
         "missing": 0,
-        "distinct_nonmissing": 4407
+        "distinct_nonmissing": 4447
       }
     }
   },

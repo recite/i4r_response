@@ -243,6 +243,47 @@ class AcquisitionTests(unittest.TestCase):
             {"treated", "control"},
         )
 
+    def test_targeted_fetch_preserves_unrequested_histories(self):
+        records = {
+            "articles.csv": [article("treated") | dict(openalex_id="W1")],
+            "events.csv": [event()],
+            "citations.csv": counts("treated", {2014: 3}),
+            "citation_edges.csv": [],
+            "citation_retrieval.csv": [],
+            "control_articles.csv": [article("control") | dict(openalex_id="W2")],
+        }
+        saved = {}
+        with (
+            patch.object(
+                sources, "read", side_effect=lambda name: records.get(name, [])
+            ),
+            patch.object(
+                sources,
+                "write",
+                side_effect=lambda name, rows, fields: saved.update({name: rows}),
+            ),
+            patch.object(citations, "all_works", return_value=[]) as fetch,
+        ):
+            citations.collect(article_ids=["control"], max_pages=2)
+            self.assertEqual(fetch.call_count, 1)
+            self.assertEqual(fetch.call_args.args[-1], 2)
+            self.assertIn(records["citations.csv"][0], saved["citations.csv"])
+            with self.assertRaisesRegex(ValueError, "Unknown requested"):
+                citations.collect(article_ids=["typo"])
+
+    def test_page_cap_does_not_return_a_partial_history(self):
+        with patch.object(
+            sources,
+            "fetch",
+            return_value={
+                "results": [{"id": "W1"}],
+                "meta": {"count": 2, "next_cursor": "next"},
+            },
+        ) as fetch:
+            with self.assertRaisesRegex(ValueError, "page limit"):
+                citations.all_works({}, Path("/tmp/unused-i4r-test"), max_pages=1)
+            self.assertEqual(fetch.call_count, 1)
+
     def test_hidden_catalog_entries_are_included(self):
         entries = [{"title": "Visible"}, {"title": "Beyond show more"}]
         payload = '13:["$",null,{"reports":' + json.dumps(entries) + "}]"

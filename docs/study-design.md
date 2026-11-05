@@ -1,147 +1,134 @@
-# I4R assessment responses: retrospective study plan
+# I4R citation responses: study design
 
-Written 2026-11-04. Status: feasibility, not preregistered confirmation. The
-inherited three-case citation results, two-case synthetic comparisons, registry
-coverage, and native classifications have already been examined. New context
-ratings have not yet been collected. Record amendments before changing the queue
-or coding rules; later changes remain visible in Git.
+Revised 2026-11-04. This is a retrospective design, not a preregistration.
+Inherited citation outcomes and three-case exploratory estimates have been seen.
+This revision follows the decision to study citation trajectories first and
+citation contexts second. The prior context-only plan is preserved in
+[context-design.md](context-design.md); the older restrictive material-error
+specification remains in [i4r/design.md](i4r/design.md).
 
-## Question and estimand
+## Question and comparison
 
-The immediate pilot is restricted to the 38 inherited curated assessment records,
-which can bundle several claims. It is not drawn from all 590 enumerated assessment
-units. Among those bundles with verified material consequences and at least one
-complete post-disclosure year, test whether we can measure the share of subsequent
-article/review citing works that use the affected claim without qualification,
-qualify or correct it, explicitly defend it, or use only unaffected material.
-The initial window is the first full calendar year after first substantiated
-public disclosure; exclude the disclosure year. Average within original article,
-then across originals equally. The pilot's `assessment_id` identifies a claim
-bundle, not an atomic claim. Split bundles into versioned `claim_id` records with
-dated scope before estimating claim-level shares. A citing work counts once per
-original in original-level shares; report whether it uses any affected claim and
-retain mixed/contradictory uses. Claim-level shares are separate and cannot be
-pooled by counting the same citing work repeatedly as independent evidence.
+Among I4R-assessed original articles with verified public assessment dates and
+adequate observation, how does the change in annual citations compare with
+same-journal, same-publication-year research articles? Average original-level
+contrasts equally. Report unfavorable, favorable, mixed and unresolved assessments
+separately, retaining source definitions. Reproduction, robustness, coding errors
+and new-data replications are different assessments, not one pass/fail variable.
 
-This is initially a descriptive quantity for eligible assessed originals with
-complete citation acquisition. No probability sample of all scientific papers
-exists. Report the attrition from catalog listings to assessments, originals,
-verified claims, timing eligibility, citation completeness, and accessible full text.
-Never equate an unobserved outcome with a favorable assessment or zero citations.
-The current pilot does not estimate prevalence for all verified errors in I4R.
-An original with zero citing works has an undefined use share; report its zero
-citation count separately and exclude it from averages of use shares. The eventual
-share denominator is all verified citing works for an original with at least one,
-including uses of unaffected material; a separate conditional share among affected
-claim users answers a different question and must be labeled accordingly.
+The starting population is the full frozen assessment inventory: 590 assessment
+units concerning 551 originals. Curated material-error cases are a selected subset,
+not the study population. Unresolved assessments remain in the denominator.
+Native classifications require an explicit reviewed crosswalk before pooling them.
 
-## Distinctions that must survive construction
+## Dates and data
 
-- Original articles, independent assessment teams, versions, assessed claims,
-  disclosure events, and citing works are separate entities with stable IDs.
-- Computational reproduction, demonstrated coding/data/inference error,
-  robustness sensitivity, and new-data replication are different assessments.
-- Favorable, unfavorable, mixed, disputed, and unresolved judgments retain their
-  source definitions. A nonsignificant reanalysis is not automatically an error.
-- Record corrected magnitude/direction, whether the affected claim is central,
-  and whether a correction strengthens or weakens it. No universal prediction
-  that every correction should reduce citations follows.
-- Author replies, agreement, journal corrections, and later assessments are
-  outcomes or subsequent events. They are not automatic baseline controls.
+Keep the original's publisher date, indexed publication year, report publication
+date and earliest substantiated public assessment date separately, with sources
+and precision. OSF creation and current catalog publication dates are leads for
+review, not verified first disclosure. Date intervals spanning years cannot supply a unique event year. Preserve all original-to-report links.
+An earlier individual report takes precedence over a later aggregate announcement;
+uncertain chronology stays unresolved. A dated critique of one claim does not
+prove it was the first assessment of the original. Review that distinction before
+calling the broader analysis an initial-assessment comparison. Repeated assessments
+remain linked; one original receives one weight in a given comparison.
 
-Dates require evidence that the relevant result was publicly available. An upload,
-catalog appearance, original report date, and publication of an aggregate overview
-are not interchangeable. Preserve precision and earlier-version uncertainty.
-The 2026 Nature overview does not reset earlier individual report dates.
+End outcomes at 2025, the last complete calendar year. The primary outcome is
+unique citing articles/reviews per original/year, with complete incoming-link
+retrieval and DOI deduplication (stable OpenAlex ID when no DOI exists). Cached OpenAlex annual totals across all types
+are a separately labeled provisional measurement. Never mix these measurements
+within a comparison, and never replace an unavailable year with zero. Preserve
+source receipts, snapshot dates and acquisition failures. No bulk replication
+packages are needed.
 
-Every candidate needs a dated evidence packet establishing which particular
-claim and correction were public before the sampled citing work. The queue marks
-this temporal review pending. Do not use later additions to a critique, replies,
-or retractions to classify what an earlier citation should have acknowledged.
-For example, the inherited dp_294 record distinguishes later 2026 criticisms from
-its 2021 disclosure; dp_226 includes expanded criticisms and a 2025 retraction.
-Split their scopes and dates before coding. Preserve the citing version's date,
-including earlier preprints where available. Publication after disclosure does
-not establish that the citing text was written after disclosure. Report that
-chronological limitation and any first-public-version sensitivity explicitly.
+## Windows, controls and estimation
 
-## Measurement before expansion
+The main balanced window is three complete years before and three after the
+assessment, omitting the event year. A separately labeled short-window diagnostic
+uses two years before and the first full year after. Three post years through 2025 require an event in 2022 or earlier. It is not a substitute for
+missing long-run evidence. Require publication before the first baseline year.
+For conservative eligibility, a partial publication date must unambiguously
+precede that year. Also show annual paths and the number of contributing originals.
 
-`scripts/feasibility.py` constructs a fixed seed sample of up to five first-post-year
-citing article/review works per eligible claim with complete cached acquisition.
-The inclusion probability is min(5, N)/N within claim. All other eligibility and
-missingness states stay in the roster. This queue is a measurement pilot;
-five texts per claim cannot support precise case-level prevalence estimates.
+Use exact journal and indexed publication year consistently for both arms.
+Retrieve the complete donor pool before matching. Exclude known assessed originals,
+items retracted before or during the event year and documented nonresearch items; report the limits of the screen.
+Later retractions remain in the main donor pool and are flagged for a sensitivity excluding them. Undated known retractions remain ineligible. Do not silently widen to adjacent years. Within the eligible pool, select up to
+five nearest donors using standardized log(1 + annual citations) in baseline
+years, with equal coordinate weights and deterministic identity tie-breaking.
+Use donor-pool population standard deviations; omit constant coordinates. If all
+coordinates are constant, retain their tied distances and select deterministically,
+flagging that the citation histories cannot distinguish donors. No post-event
+citations enter selection. Missing baseline data for an otherwise eligible donor
+blocks matching; missing post-data for a selected donor blocks the contrast rather
+than causing replacement. Report distances, levels, slopes and donor reuse. Report per-coordinate differences in baseline log citations and whether the original falls outside the donor range; do not present a poor match as evidence of comparable counterfactual trends. Retain such cases as descriptive diagnostics rather than choosing a result-dependent caliper.
 
-Two independent readers inspect the relevant original claim, assessment and
-reply, then code citing text under [the protocol](context-review.md). Retain
-separate initial judgments and adjudication. This independent-reader requirement
-is not satisfied by two prompts to one model. Automated extraction can locate
-passages; inferred sentiment alone cannot establish reliance.
+Each case contrast is its mean post-minus-pre citation change minus the same
+change averaged across its selected donors. Summaries weight originals equally.
+Report cases and raw paths before aggregate estimates. A future proportional
+model is a distinct estimand; log(1 + citations) differences are not percentages.
 
-Before expansion, report access coverage by case and year, ambiguous/uncodable
-rates, the reader confusion matrix, raw agreement and a chance-adjusted measure,
-and examples of disagreements. The question is whether the distinction is stable
-enough to change an interpretation, not whether a single reliability threshold
-can be passed. Check whether agreement persists on newly sampled texts after
-revising the codebook; do not evaluate revised rules only on their training cases.
+The current executable diagnostic uses the earliest verified *curated challenge*
+per original. It does not restrict to material errors, but this convenience subset
+is still selected. It reports descriptive contrasts only, not a general I4R effect
+or a completed first-assessment analysis. A reviewed chronology and assessment
+crosswalk are required to extend it to the full population.
 
-## Broader comparison and identification
+## Interpretation and uncertainty
 
-Only after source/date review supports it, compare claim-use distributions across
-material-error, limited-error, robustness, new-data and favorable assessments.
-Use a complete predefined I4R program where possible; the current mixed catalog
-is not a randomized sample, nor evidence of random assignment to assessors.
-Selection into a replication game, manuscript availability, and publication of
-negative reports can all be selective. Preserve program, team and version links.
+A causal interpretation requires comparable untreated trends, no anticipatory
+response, no differential coincident news and limited spillovers. Selection into
+replication and the delay between writing and publication can violate these.
+Check earlier held-out pre-years where available; matching-year fit is not an
+independent test. Examine original-publication timing, later assessments,
+mechanical citations from replication reports, author self-citations, donor
+contamination, alternative baselines and influential cases. Do not select a
+specification because its estimate agrees with prior literature or expectations.
 
-The primary extension remains descriptive. Standardizing by field, article age,
-pre-disclosure citations and report year changes the target population; specify
-those weights before observing the new coded outcomes. Neither matching nor
-event-time plots establish that the disclosure caused the observed response.
+For the small cached diagnostic, report individual contrasts without inferential
+p-values or a population causal interval. Before broader estimation, map shared
+reports/programs and reused donors, then implement and test inference preserving
+those dependencies. Report cluster counts and leave-report-out sensitivity.
+Precision and minimum detectable effects remain to be assessed on that map;
+absence of significance will not establish absence of a meaningful response.
+The predefined primary outcome/window is article/review counts over three pre
+and three post years. Other windows and measurements are sensitivity analyses.
 
-Citation-count contrasts are secondary. Keep equal-original additive changes
-separate from model-based proportional estimates. A causal interpretation would
-require credible untreated citation paths, no anticipation, appropriate treatment
-timing and limited spillovers. Examine held-out pre-periods, publicity/positive-news
-comparisons, donor contamination and report-level dependence. Do not pool the
-old three-case comparison as a general I4R effect or use already treated articles
-as untreated controls in a conventional staggered fixed-effects regression.
+## Second stage: citation contexts
 
-## Missingness, inference and sensitivity
+After the basic panel, draw a small deterministic probability sample of citing
+works within originals and pre/post periods, retaining sampling probabilities. Sample from the complete citation frame before checking text access; retain inaccessible sampled works.
+Retrieve available full texts with URLs, hashes and version dates. Extract every
+in-text citation to the original with surrounding paragraphs and reference-entry
+linkage. A bibliography mention or failed extraction is not an approving citation.
 
-Accessible text is not necessarily representative of all citing works. Record
-retrieval failures and unresolved linkage; report worst-case bounds that assign
-missing texts to each extreme outcome. Acquisition completeness refers to a
-provider snapshot and does not prove universal bibliographic coverage. Keep
-article/review links distinct from OpenAlex all-type precomputed annual totals.
+Give an LLM judge the extracted passages plus the dated finding/assessment packet.
+Code separately: use of the challenged finding; approving/supportive, critical or
+neutral use; explicit concern or qualification; correction uptake; explicit defense;
+and unaffected-method/result use. Preserve mixed uses and unjudgeable cases.
+Require quoted evidence and passage offsets for each judgment. A lack of concern
+in an extracted paragraph does not establish absence elsewhere in the paper.
 
-For the pilot, report counts and within-claim sampling probabilities without a
-population causal interval. For a larger descriptive sample, account for sampling
-within originals, shared reports, repeated citing works and multiple assessed
-claims; finalize the variance model after mapping those dependencies and before
-estimating new outcome contrasts. A large number of citation pairs does not imply
-many independent disclosure events. Assess precision/power using the observed
-cluster structure and pilot coding rates before expanding acquisition; no MDE
-has yet been established.
+Use the citing work as the unit, retaining all passages. Code any challenged-finding use and any substantive concern, plus mixed stance when passages disagree. Estimate each period share with sampling weights and compare pre/post shares within originals before averaging across originals. Concern before disclosure may reflect independent criticism; it is not awareness of a future assessment. Separate
+all-citation shares from shares conditional on using the challenged finding. Review
+a small calibration set manually and with an independent model, retain initial
+ratings and disagreements, then evaluate the revised codebook on new cases. Keep
+model/version/prompt records. Report access and extraction coverage and sensitivity
+to missing texts. Publication after a challenge does not establish that the
+manuscript was written afterward. The existing 49-work post-only queue is an access
+pilot, not a before/after sample. No LLM-judged outcome has yet been produced.
 
-Predeclared diagnostics include claim-use versus generic favorability, report
-co-citation versus substantive correction uptake, explicit defenses, unaffected
-claims within the same original, later assessments, date uncertainty, mechanical
-citations from assessment reports, and self/assessment-author citations. These
-are interpretation checks, not randomly assigned placebos. Record report and
-author identities before estimating exclusions. Report uncertainty and changing
-denominators by horizon rather than selecting a favorable post period.
+## Review and changes
 
-## Decision and next work
+An independent model reviewed the revised design and executable diagnostic on
+2026-11-04. Changes made before interpreting new comparisons: preserve the full
+roster independently of eligibility; state the 2022-or-earlier cutoff for three
+post years; retain later-retracted donors and flag them; expose baseline support;
+use stable IDs when citing DOIs are absent; reject inconsistent event dates;
+record the complete pool used for each comparison. The conservative annual rule
+excludes a donor retracted during the event year when ordering is unresolved.
 
-Proceed with measurement feasibility and date/classification audit. Do not launch
-paid or bulk acquisition on the strength of this pilot alone. Scale if reliable
-claim-specific measurement and adequate case diversity/follow-up survive review.
-Narrow or stop if the only defensible finding is the already known persistence of
-citations, if access makes the target quantity uninformative, or if assessment
-families cannot be compared without conflating incompatible outcomes.
-
-The closest prior work includes context analysis, not only citation counts; see
-[prior-work.md](prior-work.md). Any claimed novelty must be updated against those
-studies before manuscript drafting.
+The same review clarified second-stage sampling before text-access filtering,
+work-level aggregation of multiple passages, sampling weights, and the distinction
+between pre-existing criticism and awareness of an assessment. This review is not
+independent re-adjudication of the underlying I4R reports.

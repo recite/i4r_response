@@ -169,34 +169,34 @@ One row: candidate significant-error assessment. Rows: 38. Key: assessment_id. P
 
 ## citation_edges.csv
 
-One row: deduplicated original–citing article pair. Rows: 32069. Key: article_id, citing_work_id. Producer: `i4r_citations fetch`.
+One row: deduplicated original–citing article pair. Rows: 34691. Key: article_id, citing_work_id. Producer: `i4r_citations fetch`.
 
 | Column | Type | Meaning | Missing | Observed range / values |
 | --- | --- | --- | ---: | --- |
-| `article_id` | string | Opaque original-article identity; title-derived for registry, OpenAlex ID for controls. | 0 | 416 distinct nonmissing values |
-| `citing_work_id` | string | OpenAlex work ID of the citing publication. | 0 | 28253 distinct nonmissing values |
-| `citing_doi` | string | Normalized DOI of the citing publication; absent uses work ID for deduplication. | 105 | 28154 distinct nonmissing values |
+| `article_id` | string | Opaque original-article identity; title-derived for registry, OpenAlex ID for controls. | 0 | 442 distinct nonmissing values |
+| `citing_work_id` | string | OpenAlex work ID of the citing publication. | 0 | 30453 distinct nonmissing values |
+| `citing_doi` | string | Normalized DOI of the citing publication; absent uses work ID for deduplication. | 128 | 30335 distinct nonmissing values |
 | `publication_year` | integer | Calendar year of original publication. | 0 | 2017 to 2025 |
-| `publication_date` | string | Earliest publication date reported in the accepted Crossref record; may be later than online-first. Conservative age gate; no outcome-derived dates. | 0 | 2966 distinct nonmissing values |
+| `publication_date` | string | Earliest publication date reported in the accepted Crossref record; may be later than online-first. Conservative age gate; no outcome-derived dates. | 0 | 3050 distinct nonmissing values |
 | `type` | string | OpenAlex-compatible document type; primary outcomes count article and review. | 0 | article; review |
 
 ## citation_retrieval.csv
 
-One row: original article citation retrieval. Rows: 437. Key: article_id. Producer: `i4r_citations fetch`.
+One row: original article citation retrieval. Rows: 462. Key: article_id. Producer: `i4r_citations fetch`.
 
 | Column | Type | Meaning | Missing | Observed range / values |
 | --- | --- | --- | ---: | --- |
-| `article_id` | string | Opaque original-article identity; title-derived for registry, OpenAlex ID for controls. | 0 | 437 distinct nonmissing values |
+| `article_id` | string | Opaque original-article identity; title-derived for registry, OpenAlex ID for controls. | 0 | 462 distinct nonmissing values |
 | `status` | string | Stage-specific observed disposition; see values and the construction contract. | 0 | complete; incomplete; unresolved_identity |
-| `detail` | string | Retrieval error or diagnostic detail; empty for successful retrieval. | 435 | HTTP Error 429: Too Many Requests; The read operation timed out |
+| `detail` | string | Retrieval error or diagnostic detail; empty for successful retrieval. | 461 | HTTP Error 429: Too Many Requests |
 
 ## citations.csv
 
-One row: original article–calendar-year. Rows: 2956. Key: article_id, year. Producer: `i4r_citations fetch`.
+One row: original article–calendar-year. Rows: 3190. Key: article_id, year. Producer: `i4r_citations fetch`.
 
 | Column | Type | Meaning | Missing | Observed range / values |
 | --- | --- | --- | ---: | --- |
-| `article_id` | string | Opaque original-article identity; title-derived for registry, OpenAlex ID for controls. | 0 | 422 distinct nonmissing values |
+| `article_id` | string | Opaque original-article identity; title-derived for registry, OpenAlex ID for controls. | 0 | 448 distinct nonmissing values |
 | `year` | integer | Public disclosure year in events; observed citation year in citation/panel tables. | 0 | 2017 to 2025 |
 | `citations` | number | Deduplicated citing journal articles/reviews; sensitivity averages may be fractional. | 0 | 0 to 882 |
 | `status` | string | Stage-specific observed disposition; see values and the construction contract. | 0 | complete |
@@ -408,14 +408,14 @@ One row: selected control balance. Rows: 0. Key: event_id, control_id, horizon. 
 
 ## match_candidates.csv
 
-One row: screened event–control–horizon. Rows: 1095. Key: event_id, control_id, horizon. Producer: `i4r_match`.
+One row: screened event–control–horizon. Rows: 1020. Key: event_id, control_id, horizon. Producer: `i4r_match`.
 
 | Column | Type | Meaning | Missing | Observed range / values |
 | --- | --- | --- | ---: | --- |
 | `event_id` | string | Identifier for a candidate particular-error disclosure event. | 0 | dp_021_disclosure; dp_292_disclosure; dp_294_disclosure |
 | `article_id` | string | Opaque original-article identity; title-derived for registry, OpenAlex ID for controls. | 0 | i4r_55d334eaeb4010; i4r_ece0397b04bfa9; i4r_f45e09f5bc283f |
-| `control_id` | string | Original control-article ID retained across reused matches. | 0 | 535 distinct nonmissing values |
-| `distance` | number | Standardized pre-citation and text matching distance; no post outcomes used. | 1095 |  |
+| `control_id` | string | Original control-article ID retained across reused matches. | 0 | 510 distinct nonmissing values |
+| `distance` | number | Standardized pre-citation and text matching distance; no post outcomes used. | 1020 |  |
 | `eligible` | string | yes/no after metadata, age, exposure and citation-caliper gates. | 0 | no |
 | `reason` | string | Explicit exclusion reason; blank if eligible. | 0 | assessment_or_reply; incomplete_pre_citations; insufficient_article_age; known_assessed_article; known_retraction_in_window; nonresearch_publication |
 | `horizon` | integer | Full calendar years after disclosure, primary 1; secondary 2 and 3. | 0 | 1 to 3 |
@@ -587,14 +587,14 @@ One row: explicit external source link. Rows: 448. Key: no unique key declared. 
 
 ## source_manifest.csv
 
-One row: cached response. Rows: 6520. Key: path. Producer: `i4r_sources manifest`.
+One row: cached response. Rows: 6561. Key: path. Producer: `i4r_sources manifest`.
 
 | Column | Type | Meaning | Missing | Observed range / values |
 | --- | --- | --- | ---: | --- |
-| `path` | string | Repository-relative cache path; private raw contents are not redistributed. | 0 | 6520 distinct nonmissing values |
-| `url` | string | Source or download URL; no authentication credentials. | 0 | 5555 distinct nonmissing values |
-| `retrieved_at` | string | UTC retrieval timestamp from cached response provenance. | 0 | 5776 distinct nonmissing values |
-| `sha256` | string | SHA-256 content checksum of retrieved bytes. | 0 | 5122 distinct nonmissing values |
+| `path` | string | Repository-relative cache path; private raw contents are not redistributed. | 0 | 6561 distinct nonmissing values |
+| `url` | string | Source or download URL; no authentication credentials. | 0 | 5596 distinct nonmissing values |
+| `retrieved_at` | string | UTC retrieval timestamp from cached response provenance. | 0 | 5817 distinct nonmissing values |
+| `sha256` | string | SHA-256 content checksum of retrieved bytes. | 0 | 5163 distinct nonmissing values |
 | `bytes` | integer | Response size in bytes. | 0 | 112 to 2.92204e+09 |
 
 ## source_metadata.csv

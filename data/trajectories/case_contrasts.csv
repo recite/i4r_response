@@ -1,0 +1,7 @@
+article_id,event_id,measure,window,title,disclosure_year,controls,target_pre,target_post,control_pre,control_post,difference_in_changes
+i4r_19321c88424658,dp_148_disclosure,all_type_annual_totals,short_2pre_1post,The Arrival of Fast Internet and Employment in Africa,2024,5,105.5,137,107.4,121.6,17.30000000000001
+i4r_ddd0c180402652,dp_193_disclosure,all_type_annual_totals,short_2pre_1post,Building Nations through Shared Experiences: Evidence from African Football,2024,5,37.5,39,36.9,39.8,-1.3999999999999986
+i4r_f45e09f5bc283f,dp_294_disclosure,article_review_edges,balanced_3pre_3post,Development Effects of Electrification: Evidence from the Topographic Placement of Hydropower Plants in Brazil,2021,5,22,21.666666666666668,22,23.533333333333335,-1.8666666666666671
+i4r_f45e09f5bc283f,dp_294_disclosure,all_type_annual_totals,balanced_3pre_3post,Development Effects of Electrification: Evidence from the Topographic Placement of Hydropower Plants in Brazil,2021,5,32.666666666666664,36.333333333333336,32.733333333333334,39.6,-3.1999999999999957
+i4r_f45e09f5bc283f,dp_294_disclosure,article_review_edges,short_2pre_1post,Development Effects of Electrification: Evidence from the Topographic Placement of Hydropower Plants in Brazil,2021,5,24.5,15,23.6,25.8,-11.7
+i4r_f45e09f5bc283f,dp_294_disclosure,all_type_annual_totals,short_2pre_1post,Development Effects of Electrification: Evidence from the Topographic Placement of Hydropower Plants in Brazil,2021,5,35,28,33.3,36.4,-10.100000000000001

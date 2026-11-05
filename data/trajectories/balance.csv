@@ -1,0 +1,15 @@
+article_id,event_id,measure,window,year,target_citations,selected_control_mean,eligible_pool_min,eligible_pool_max,target_outside_pool_range,log_baseline_difference
+i4r_19321c88424658,dp_148_disclosure,all_type_annual_totals,short_2pre_1post,2022,86,94.6,0,165,False,-0.07059389942160799
+i4r_19321c88424658,dp_148_disclosure,all_type_annual_totals,short_2pre_1post,2023,125,120.2,0,168,False,0.05927455345474897
+i4r_ddd0c180402652,dp_193_disclosure,all_type_annual_totals,short_2pre_1post,2022,24,29.4,0,512,False,-0.1914266731850831
+i4r_ddd0c180402652,dp_193_disclosure,all_type_annual_totals,short_2pre_1post,2023,51,44.4,0,750,False,0.1377546186991463
+i4r_f45e09f5bc283f,dp_294_disclosure,article_review_edges,balanced_3pre_3post,2018,17,19.4,0,44,False,-0.10189058799080408
+i4r_f45e09f5bc283f,dp_294_disclosure,article_review_edges,balanced_3pre_3post,2019,26,22.8,0,50,False,0.17564151278425344
+i4r_f45e09f5bc283f,dp_294_disclosure,article_review_edges,balanced_3pre_3post,2020,23,23.8,1,57,False,-0.006260837460550395
+i4r_f45e09f5bc283f,dp_294_disclosure,all_type_annual_totals,balanced_3pre_3post,2018,28,29,0,69,False,-0.004510669084348606
+i4r_f45e09f5bc283f,dp_294_disclosure,all_type_annual_totals,balanced_3pre_3post,2019,36,33.6,0,67,False,0.09289062811053928
+i4r_f45e09f5bc283f,dp_294_disclosure,all_type_annual_totals,balanced_3pre_3post,2020,34,35.6,0,91,False,-0.004095577622140745
+i4r_f45e09f5bc283f,dp_294_disclosure,article_review_edges,short_2pre_1post,2019,26,22.6,0,50,False,0.1877664371475407
+i4r_f45e09f5bc283f,dp_294_disclosure,article_review_edges,short_2pre_1post,2020,23,24.6,1,57,False,-0.04639497655298053
+i4r_f45e09f5bc283f,dp_294_disclosure,all_type_annual_totals,short_2pre_1post,2019,36,36.6,0,67,False,0.019798673411646206
+i4r_f45e09f5bc283f,dp_294_disclosure,all_type_annual_totals,short_2pre_1post,2020,34,30,0,91,False,0.1310555099474744
